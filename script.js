@@ -18,17 +18,27 @@ const critStatusEl = document.getElementById("critStatus");
 
 const SAVE_KEY = "kotokliker_save";
 
-// ===== ЗАГРУЗКА =====
+// ===== ЗАГРУЗКА СЕЙВА =====
 let save = JSON.parse(localStorage.getItem(SAVE_KEY)) || {};
 
-let score = Number(save.score) || 0;
-let clickPower = Number(save.clickPower) || 1;
-let autoClickers = Number(save.autoClickers) || 0;
-let boostPrice = Number(save.boostPrice) || 100;
-let critBought = Boolean(save.critBought);
-let boostActive = Boolean(save.boostActive);
+// ЖЁСТКАЯ НОРМАЛИЗАЦИЯ
+let score = Number(save.score);
+if (!isFinite(score)) score = 0;
+
+let clickPower = Number(save.clickPower);
+if (!isFinite(clickPower) || clickPower < 1) clickPower = 1;
+
+let autoClickers = Number(save.autoClickers);
+if (!isFinite(autoClickers) || autoClickers < 0) autoClickers = 0;
+
+let boostPrice = Number(save.boostPrice);
+if (!isFinite(boostPrice) || boostPrice < 100) boostPrice = 100;
+
+let critBought = save.critBought === true;
+let boostActive = save.boostActive === true;
 
 updateUI();
+saveGame(); // перезаписываем сейв уже нормальными числами
 
 // ===== СОХРАНЕНИЕ =====
 function saveGame() {
@@ -42,7 +52,7 @@ function saveGame() {
   }));
 }
 
-// ===== ОБНОВЛЕНИЕ UI =====
+// ===== UI =====
 function updateUI() {
   scoreEl.textContent = score;
   clickLevelEl.textContent = clickPower;
@@ -50,19 +60,16 @@ function updateUI() {
   boostPriceEl.textContent = boostPrice;
   critStatusEl.textContent = critBought ? "Куплен" : "Не куплен";
 
-  // цена клика: 10 * уровень²
   const clickCost = 10 * clickPower * clickPower;
   upgradeBtn.textContent = `➕ +1 за клик (${clickCost} 🐟)`;
 
-  // цена автокликера: 50 * (кол-во+1)²
   const autoCost = 50 * (autoClickers + 1) * (autoClickers + 1);
   autoBtn.textContent = `🤖 Автокликер (${autoCost} 🐟)`;
 
-  // цена буста
   boostBtn.textContent = `⚡ Буст x2 (${boostPrice} 🐟)`;
 }
 
-// ===== КЛИК ПО КОТУ =====
+// ===== КЛИК =====
 catBtn.onclick = () => {
   let power = clickPower;
 
@@ -78,7 +85,7 @@ catBtn.onclick = () => {
 openShopBtn.onclick = () => shopDiv.classList.add("show");
 closeShopBtn.onclick = () => shopDiv.classList.remove("show");
 
-// ===== АПГРЕЙД КЛИКА =====
+// ===== АПГРЕЙД =====
 upgradeBtn.onclick = () => {
   const cost = 10 * clickPower * clickPower;
   if (score >= cost) {
@@ -89,7 +96,7 @@ upgradeBtn.onclick = () => {
   } else alert("Не хватает рыб!");
 };
 
-// ===== АВТОКЛИКЕР (КАК КЛИК) =====
+// ===== АВТОКЛИКЕР =====
 autoBtn.onclick = () => {
   const cost = 50 * (autoClickers + 1) * (autoClickers + 1);
   if (score >= cost) {
@@ -100,13 +107,14 @@ autoBtn.onclick = () => {
   } else alert("Не хватает рыб!");
 };
 
-// ===== БУСТ =====
+// ===== БУСТ (БОЛЬШЕ НИКОГДА НЕ NaN) =====
 boostBtn.onclick = () => {
   if (score >= boostPrice) {
     score -= boostPrice;
     boostActive = true;
 
     boostPrice = Math.round(boostPrice * 2.25);
+    if (!isFinite(boostPrice)) boostPrice = 100;
 
     updateUI();
     saveGame();
@@ -129,7 +137,7 @@ critBtn.onclick = () => {
   } else alert("Не хватает рыб!");
 };
 
-// ===== АВТОКЛИК ДОХОД =====
+// ===== ПАССИВ =====
 setInterval(() => {
   if (autoClickers > 0) {
     score += autoClickers;
@@ -152,4 +160,5 @@ resetBtn.onclick = () => {
   }
 };
 
+// анти-зум
 document.addEventListener("dblclick", e => e.preventDefault());
