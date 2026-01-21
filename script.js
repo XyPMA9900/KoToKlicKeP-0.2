@@ -18,6 +18,7 @@ const critStatusEl = document.getElementById("critStatus");
 
 const SAVE_KEY = "kotokliker_save";
 
+// ===== ЗАГРУЗКА =====
 let save = JSON.parse(localStorage.getItem(SAVE_KEY)) || {
   score: 0,
   clickPower: 1,
@@ -27,17 +28,29 @@ let save = JSON.parse(localStorage.getItem(SAVE_KEY)) || {
   boostActive: false
 };
 
-let { score, clickPower, autoClickers, boostPrice, critBought, boostActive } = save;
+// Гарантируем числа
+let score = Number(save.score);
+let clickPower = Number(save.clickPower);
+let autoClickers = Number(save.autoClickers);
+let boostPrice = Number(save.boostPrice);
+let critBought = Boolean(save.critBought);
+let boostActive = Boolean(save.boostActive);
 
 updateUI();
 
+// ===== СОХРАНЕНИЕ =====
 function saveGame() {
   localStorage.setItem(SAVE_KEY, JSON.stringify({
-    score, clickPower, autoClickers,
-    boostPrice, critBought, boostActive
+    score,
+    clickPower,
+    autoClickers,
+    boostPrice,
+    critBought,
+    boostActive
   }));
 }
 
+// ===== ОБНОВЛЕНИЕ UI =====
 function updateUI() {
   scoreEl.textContent = score;
   clickLevelEl.textContent = clickPower;
@@ -45,17 +58,18 @@ function updateUI() {
   boostPriceEl.textContent = boostPrice;
   critStatusEl.textContent = critBought ? "Куплен" : "Не куплен";
 
-  // обновляем текст кнопки буста
-  boostBtn.textContent = `⚡ Буст x2 (${boostPrice} 🐟)`;
-
-  // обновляем цену апгрейда клика
+  // цена апгрейда клика
   const clickCost = 10 * clickPower * clickPower;
   upgradeBtn.textContent = `➕ +1 за клик (${clickCost} 🐟)`;
+
+  // цена буста
+  boostBtn.textContent = `⚡ Буст x2 (${boostPrice} 🐟)`;
 }
 
-// клик по коту
+// ===== КЛИК ПО КОТУ =====
 catBtn.onclick = () => {
   let power = clickPower;
+
   if (boostActive) power *= 2;
   if (critBought && Math.random() < 0.02) power *= 12;
 
@@ -64,11 +78,11 @@ catBtn.onclick = () => {
   saveGame();
 };
 
-// открыть / закрыть магазин
+// ===== МАГАЗИН =====
 openShopBtn.onclick = () => shopDiv.classList.add("show");
 closeShopBtn.onclick = () => shopDiv.classList.remove("show");
 
-// апгрейд клика (нормальная цена)
+// апгрейд клика
 upgradeBtn.onclick = () => {
   const cost = 10 * clickPower * clickPower;
   if (score >= cost) {
@@ -76,7 +90,9 @@ upgradeBtn.onclick = () => {
     clickPower++;
     updateUI();
     saveGame();
-  } else alert("Не хватает рыб!");
+  } else {
+    alert("Не хватает рыб!");
+  }
 };
 
 // автокликер
@@ -87,11 +103,16 @@ autoBtn.onclick = () => {
     autoClickers++;
     updateUI();
     saveGame();
-  } else alert("Не хватает рыб!");
+  } else {
+    alert("Не хватает рыб!");
+  }
 };
 
-// буст x2 (исправленный)
+// ===== БУСТ (ИСПРАВЛЕННЫЙ) =====
 boostBtn.onclick = () => {
+  score = Number(score);
+  boostPrice = Number(boostPrice);
+
   if (score >= boostPrice) {
     score -= boostPrice;
     boostActive = true;
@@ -104,24 +125,30 @@ boostBtn.onclick = () => {
     setTimeout(() => {
       boostActive = false;
       saveGame();
-    }, 30000);
+    }, 30000); // 30 секунд
   } else {
     alert("Не хватает рыб!");
   }
 };
 
-// крит
+// ===== КРИТ =====
 critBtn.onclick = () => {
-  if (critBought) return alert("Уже куплено!");
+  if (critBought) {
+    alert("Уже куплено!");
+    return;
+  }
+
   if (score >= 2000) {
     score -= 2000;
     critBought = true;
     updateUI();
     saveGame();
-  } else alert("Не хватает рыб!");
+  } else {
+    alert("Не хватает рыб!");
+  }
 };
 
-// автоклик раз в секунду
+// ===== АВТОКЛИК =====
 setInterval(() => {
   if (autoClickers > 0) {
     score += autoClickers;
@@ -130,7 +157,7 @@ setInterval(() => {
   }
 }, 1000);
 
-// сброс
+// ===== СБРОС =====
 resetBtn.onclick = () => {
   if (confirm("Точно сбросить прогресс?")) {
     score = 0;
@@ -144,4 +171,5 @@ resetBtn.onclick = () => {
   }
 };
 
+// анти-зум
 document.addEventListener("dblclick", e => e.preventDefault());
