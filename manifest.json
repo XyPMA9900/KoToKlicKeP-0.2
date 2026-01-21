@@ -1,0 +1,16 @@
+{
+  "name": "КотоКликер",
+  "short_name": "КотоКликер",
+  "description": "Кликай по коту, собирай рыб и прокачивайся. контакт XyPMA9900(telegram)",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffccdd",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
