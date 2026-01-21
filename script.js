@@ -1,8 +1,13 @@
 const scoreEl = document.getElementById("score");
 const catBtn = document.getElementById("cat");
+const resetBtn = document.getElementById("reset");
+
+const openShopBtn = document.getElementById("openShop");
+const closeShopBtn = document.getElementById("closeShop");
+const shopDiv = document.getElementById("shop");
+
 const upgradeBtn = document.getElementById("upgradeClick");
 const autoBtn = document.getElementById("autoClick");
-const resetBtn = document.getElementById("reset");
 
 const clickLevelEl = document.getElementById("clickLevel");
 const autoCountEl = document.getElementById("autoCount");
@@ -20,11 +25,8 @@ let score = save.score;
 let clickPower = save.clickPower;
 let autoClickers = save.autoClickers;
 
-scoreEl.textContent = score;
-clickLevelEl.textContent = clickPower;
-autoCountEl.textContent = autoClickers;
+updateUI();
 
-// сохранить
 function saveGame() {
   localStorage.setItem(SAVE_KEY, JSON.stringify({
     score,
@@ -33,11 +35,29 @@ function saveGame() {
   }));
 }
 
+function updateUI() {
+  scoreEl.textContent = score;
+  clickLevelEl.textContent = clickPower;
+  autoCountEl.textContent = autoClickers;
+}
+
 // клик по коту
 catBtn.onclick = () => {
   score += clickPower;
-  scoreEl.textContent = score;
+  updateUI();
   saveGame();
+};
+
+// открыть магазин
+openShopBtn.onclick = () => {
+  shopDiv.classList.remove("hidden");
+  setTimeout(() => shopDiv.classList.add("show"), 10);
+};
+
+// закрыть магазин
+closeShopBtn.onclick = () => {
+  shopDiv.classList.remove("show");
+  setTimeout(() => shopDiv.classList.add("hidden"), 300);
 };
 
 // апгрейд клика
@@ -46,8 +66,7 @@ upgradeBtn.onclick = () => {
   if (score >= cost) {
     score -= cost;
     clickPower++;
-    scoreEl.textContent = score;
-    clickLevelEl.textContent = clickPower;
+    updateUI();
     saveGame();
   } else {
     alert("Не хватает рыб!");
@@ -60,19 +79,18 @@ autoBtn.onclick = () => {
   if (score >= cost) {
     score -= cost;
     autoClickers++;
-    scoreEl.textContent = score;
-    autoCountEl.textContent = autoClickers;
+    updateUI();
     saveGame();
   } else {
     alert("Не хватает рыб!");
   }
 };
 
-// работает каждую секунду
+// автоклик каждую секунду
 setInterval(() => {
   if (autoClickers > 0) {
     score += autoClickers;
-    scoreEl.textContent = score;
+    updateUI();
     saveGame();
   }
 }, 1000);
@@ -83,9 +101,7 @@ resetBtn.onclick = () => {
     score = 0;
     clickPower = 1;
     autoClickers = 0;
-    scoreEl.textContent = score;
-    clickLevelEl.textContent = clickPower;
-    autoCountEl.textContent = autoClickers;
+    updateUI();
     saveGame();
   }
 };
