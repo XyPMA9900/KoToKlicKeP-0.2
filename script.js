@@ -32,7 +32,7 @@ let autoClickers = Number(save.autoClickers);
 if (!isFinite(autoClickers) || autoClickers < 0) autoClickers = 0;
 
 let boostPrice = Number(save.boostPrice);
-if (!isFinite(boostPrice) || boostPrice <= 0) boostPrice = 100;
+if (!isFinite(boostPrice) || boostPrice < 100) boostPrice = 100;
 
 let critBought = save.critBought === true;
 let boostActive = save.boostActive === true;
