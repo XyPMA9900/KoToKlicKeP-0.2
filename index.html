@@ -12,8 +12,21 @@
   <p>Рыбки: <span id="score">0</span> 🐟</p>
 
   <button id="cat">🐱</button>
+
   <br><br>
-  <button id="reset">Сбросить прогресс</button>
+  <button id="settingsBtn">⚙ Настройки</button>
+
+  <div id="settings" class="hidden">
+    <h2>Настройки</h2>
+    <button id="saveFile">💾 Сохранить прогресс</button>
+    <br><br>
+    <label class="fileBtn">
+      📂 Загрузить сохранение
+      <input type="file" id="loadFile" hidden>
+    </label>
+    <br><br>
+    <button id="reset">🗑 Сбросить прогресс</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
