@@ -7,13 +7,8 @@ body {
   touch-action: manipulation;
 }
 
-h1 {
-  font-size: 42px;
-}
-
-p {
-  font-size: 28px;
-}
+h1 { font-size: 42px; }
+p { font-size: 28px; }
 
 #cat {
   font-size: 80px;
@@ -24,7 +19,25 @@ p {
   cursor: pointer;
 }
 
-#reset {
+#settingsBtn {
   font-size: 18px;
-  padding: 12px 24px;
+  padding: 10px 20px;
+}
+
+#settings {
+  margin-top: 20px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
+
+#settings button, .fileBtn {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 5px;
 }
