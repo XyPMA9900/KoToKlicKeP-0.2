@@ -14,7 +14,6 @@ const autoCountEl = document.getElementById("autoCount");
 
 const SAVE_KEY = "kotokliker_save";
 
-// загрузка
 let save = JSON.parse(localStorage.getItem(SAVE_KEY)) || {
   score: 0,
   clickPower: 1,
@@ -29,9 +28,7 @@ updateUI();
 
 function saveGame() {
   localStorage.setItem(SAVE_KEY, JSON.stringify({
-    score,
-    clickPower,
-    autoClickers
+    score, clickPower, autoClickers
   }));
 }
 
@@ -41,26 +38,20 @@ function updateUI() {
   autoCountEl.textContent = autoClickers;
 }
 
-// клик по коту
 catBtn.onclick = () => {
   score += clickPower;
   updateUI();
   saveGame();
 };
 
-// открыть магазин
 openShopBtn.onclick = () => {
-  shopDiv.classList.remove("hidden");
-  setTimeout(() => shopDiv.classList.add("show"), 10);
+  shopDiv.classList.add("show");
 };
 
-// закрыть магазин
 closeShopBtn.onclick = () => {
   shopDiv.classList.remove("show");
-  setTimeout(() => shopDiv.classList.add("hidden"), 300);
 };
 
-// апгрейд клика
 upgradeBtn.onclick = () => {
   const cost = 10 * clickPower;
   if (score >= cost) {
@@ -73,7 +64,6 @@ upgradeBtn.onclick = () => {
   }
 };
 
-// автокликер
 autoBtn.onclick = () => {
   const cost = 50 * (autoClickers + 1);
   if (score >= cost) {
@@ -86,7 +76,6 @@ autoBtn.onclick = () => {
   }
 };
 
-// автоклик каждую секунду
 setInterval(() => {
   if (autoClickers > 0) {
     score += autoClickers;
@@ -95,7 +84,6 @@ setInterval(() => {
   }
 }, 1000);
 
-// сброс
 resetBtn.onclick = () => {
   if (confirm("Точно сбросить прогресс?")) {
     score = 0;
@@ -106,7 +94,4 @@ resetBtn.onclick = () => {
   }
 };
 
-// анти-зум
-document.addEventListener("dblclick", e => {
-  e.preventDefault();
-});
+document.addEventListener("dblclick", e => e.preventDefault());
