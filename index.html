@@ -7,21 +7,30 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>КотоКликер 🐱</h1>
 
+  <h1>КотоКликер 🐱</h1>
   <p>Рыбки: <span id="score">0</span> 🐟</p>
 
   <button id="cat">🐱</button>
 
-  <h2>Магазин</h2>
-  <button id="upgradeClick">➕ +1 за клик (10 🐟)</button>
-  <p>Уровень: <span id="clickLevel">1</span></p>
-
-  <button id="autoClick">🤖 Автокликер (50 🐟)</button>
-  <p>Автокликеров: <span id="autoCount">0</span></p>
-
-  <br>
+  <br><br>
+  <button id="openShop">🛒 Магазин</button>
+  <br><br>
   <button id="reset">🗑 Сбросить прогресс</button>
+
+  <!-- ПАНЕЛЬ МАГАЗИНА -->
+  <div id="shop" class="shop hidden">
+    <h2>Магазин</h2>
+
+    <button id="upgradeClick">➕ +1 за клик (10 🐟)</button>
+    <p>Сила клика: <span id="clickLevel">1</span></p>
+
+    <button id="autoClick">🤖 Автокликер (50 🐟)</button>
+    <p>Автокликеров: <span id="autoCount">0</span></p>
+
+    <br>
+    <button id="closeShop">⬇ Закрыть</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
