@@ -196,7 +196,8 @@ function closeAll() {
 
 function showOnly(div) {
   closeAll();
-  div.style.display = "block";
+  div.style.display = "flex";
+  div.style.pointerEvents = "auto";
 }
 
 // анти-зум
