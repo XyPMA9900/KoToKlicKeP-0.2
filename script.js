@@ -1,3 +1,4 @@
+alert("VERSION 123");
 document.addEventListener("DOMContentLoaded", () => {
 
   const $ = id => document.getElementById(id);
