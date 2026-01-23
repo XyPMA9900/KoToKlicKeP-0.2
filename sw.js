@@ -1,4 +1,4 @@
-const CACHE_NAME = "kotoklicker-v1";
+const CACHE_NAME = "kotoklicker-v2";
 const URLS_TO_CACHE = [
   "/KoToKlicKeP-0.2/",
   "/KoToKlicKeP-0.2/index.html",
