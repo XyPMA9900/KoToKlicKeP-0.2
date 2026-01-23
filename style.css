@@ -24,6 +24,11 @@ body {
   gap: 10px;
   justify-content: center;
 }
+button, input {
+  pointer-events: auto !important;
+  z-index: 1000;
+  position: relative;
+}
 
 /* МОДАЛКИ */
 
