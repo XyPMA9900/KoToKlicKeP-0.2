@@ -2,12 +2,12 @@
   "background_color": "#ffffff",
   "dir": "ltr",
   "display": "standalone",
-  "name": "xypma9900.github",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "xypma9900.github",
-  "start_url": "/",
-  "theme_color": "#ffffff",
+  "name": "KoToKlicKeP",
+  "orientation": "portrait",
+  "scope": "/KoToKlicKeP/",
+  "short_name": "Clicker",
+  "start_url": "/KoToKlicKeP/",
+  "theme_color": "#4000ff",
   "categories": [
     "games",
     "kids"
