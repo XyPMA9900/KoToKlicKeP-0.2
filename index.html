@@ -1,9 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>TEST</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
 <body>
-  <button id="test">TEST</button>
-  <script>
-    document.getElementById("test").onclick = () => alert("OK");
-  </script>
+
+<button id="test">TEST</button>
+
+<script>
+  document.getElementById("test").addEventListener("click", () => {
+    alert("OK");
+  });
+</script>
+
 </body>
 </html>
