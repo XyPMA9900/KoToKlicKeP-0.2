@@ -1,4 +1,4 @@
-alert("SCRIPT LOADED");
+// alert("SCRIPT LOADED");
 document.addEventListener("DOMContentLoaded", () => {
 
   // ===== УТИЛИТА =====
@@ -35,15 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const boostPriceEl = $("boostPrice");
   const critStatusEl = $("critStatus");
 
-  alert(
-  "score=" + !!scoreEl +
-  "\ncat=" + !!catBtn +
-  "\nopenShop=" + !!openShopBtn +
-  "\nshop=" + !!shopDiv +
-  "\nsettings=" + !!settingsDiv +
-  "\ndev=" + !!devDiv +
-  "\nupgrade=" + !!upgradeBtn
-);
+ // alert(
+//  "score=" + !!scoreEl +
+//  "\ncat=" + !!catBtn +
+//  "\nopenShop=" + !!openShopBtn +
+ // "\nshop=" + !!shopDiv +
+//  "\nsettings=" + !!settingsDiv +
+//  "\ndev=" + !!devDiv +
+//  "\nupgrade=" + !!upgradeBtn
+//);
 
   // ===== СОХРАНЕНИЕ =====
   const SAVE_KEY = "kotokliker_save";
