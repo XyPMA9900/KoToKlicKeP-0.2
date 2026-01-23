@@ -1,19 +1,55 @@
-<button id="cat">🐱</button>
-<script>
-  document.getElementById("cat").onclick = () => {
-    alert("клик работает");
-  };
-</script>
-<p>Рыбки: <span id="score">0</span></p>
-<button id="cat">🐱</button>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>КотоКликер 🐱</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial;
+      background: #f5f5f5;
+      user-select: none;
+    }
 
-<script>
-let score = 0;
-const scoreEl = document.getElementById("score");
-const cat = document.getElementById("cat");
+    #score {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
 
-cat.onclick = () => {
-  score++;
-  scoreEl.textContent = score;
-};
-</script>
+    #cat {
+      font-size: 160px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.05s;
+    }
+
+    #cat:active {
+      transform: scale(0.9);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="score">Рыбки: 0 🐟</div>
+  <button id="cat">🐱</button>
+
+  <script>
+    let score = 0;
+    const scoreEl = document.getElementById("score");
+    const cat = document.getElementById("cat");
+
+    cat.onclick = () => {
+      score++;
+      scoreEl.textContent = "Рыбки: " + score + " 🐟";
+    };
+  </script>
+
+</body>
+</html>
