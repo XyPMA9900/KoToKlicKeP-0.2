@@ -201,4 +201,3 @@ function showOnly(div) {
 }
 
 // анти-зум
-document.addEventListener("dblclick", e => e.preventDefault());
