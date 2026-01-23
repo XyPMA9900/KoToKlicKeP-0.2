@@ -1,24 +1,45 @@
-<link rel="stylesheet" href="style.css">
 body {
   margin: 0;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
   font-family: Arial;
+  background: #f2f2f2;
+}
+
+#app {
+  text-align: center;
 }
 
 #cat {
   font-size: 80px;
-  padding: 30px;
+  padding: 20px 30px;
   border-radius: 20px;
 }
+
+.main-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* МОДАЛКИ */
 
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: #ffffff;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: white;
   padding: 20px;
+  border-radius: 15px;
+  min-width: 250px;
+  text-align: center;
 }
