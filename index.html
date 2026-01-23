@@ -1,55 +1,22 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>КотоКликер 🐱</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial;
-      background: #f5f5f5;
-      user-select: none;
-    }
+<p id="score">Рыбки: 0 🐟</p>
+<div id="cat">🐱</div>
 
-    #score {
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
+<script>
+  // загрузка
+  let score = Number(localStorage.getItem("score")) || 0;
 
-    #cat {
-      font-size: 160px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.05s;
-    }
+  const scoreEl = document.getElementById("score");
+  const cat = document.getElementById("cat");
 
-    #cat:active {
-      transform: scale(0.9);
-    }
-  </style>
-</head>
-<body>
+  // показать сохранённое
+  scoreEl.textContent = "Рыбки: " + score + " 🐟";
 
-  <div id="score">Рыбки: 0 🐟</div>
-  <button id="cat">🐱</button>
+  // клик
+  cat.onclick = () => {
+    score++;
+    scoreEl.textContent = "Рыбки: " + score + " 🐟";
 
-  <script>
-    let score = 0;
-    const scoreEl = document.getElementById("score");
-    const cat = document.getElementById("cat");
-
-    cat.onclick = () => {
-      score++;
-      scoreEl.textContent = "Рыбки: " + score + " 🐟";
-    };
-  </script>
-
-</body>
-</html>
+    // сохранить
+    localStorage.setItem("score", score);
+  };
+</script>
