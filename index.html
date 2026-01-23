@@ -4,3 +4,16 @@
     alert("клик работает");
   };
 </script>
+<p>Рыбки: <span id="score">0</span></p>
+<button id="cat">🐱</button>
+
+<script>
+let score = 0;
+const scoreEl = document.getElementById("score");
+const cat = document.getElementById("cat");
+
+cat.onclick = () => {
+  score++;
+  scoreEl.textContent = score;
+};
+</script>
