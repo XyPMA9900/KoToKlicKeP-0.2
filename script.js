@@ -22,6 +22,7 @@ const devPassInput = document.getElementById("devPass");
 const devMsg = document.getElementById("devMsg");
 const devPanel = document.getElementById("devPanel");
 const giveMillionBtn = document.getElementById("giveMillion");
+const checkDev = document.getElementById("checkDev");
 
 const upgradeBtn = document.getElementById("upgradeClick");
 const autoBtn = document.getElementById("autoClick");
