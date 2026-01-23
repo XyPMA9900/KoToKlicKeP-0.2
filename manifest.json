@@ -4,7 +4,7 @@
   "display": "standalone",
   "name": "KoToKlicKeP",
   "orientation": "portrait",
-  "scope": "/KoToKlicKeP/",
+  "scope": "/KoToKlicKeP-0.2/",
   "short_name": "Clicker",
   "start_url": "/KoToKlicKeP/",
   "theme_color": "#4000ff",
