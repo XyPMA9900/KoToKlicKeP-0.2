@@ -1,6 +1,17 @@
 const $ = id => document.getElementById(id);
 
+let score = 0;
+
 document.addEventListener("DOMContentLoaded", () => {
+
+  $("cat").onclick = () => {
+    score++;
+    $("score").textContent = score + " 🐟";
+  };
+
+  $("loginBtn").onclick = () => {
+    $("loginScreen").classList.remove("show");
+  };
 
   $("openShop").onclick = () => {
     $("shop").classList.add("show");
