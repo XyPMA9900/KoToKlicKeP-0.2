@@ -88,25 +88,23 @@ setInterval(()=>{
 
 /* ЛОГИН */
 $("loginBtn").onclick=()=>{
-  const n=$("loginName").value;
-  const p=$("loginPass").value;
+  const n=$("loginName").value.trim();
+  const p=$("loginPass").value.trim();
 
-  if(!accounts[n]){
-    if(confirm("Аккаунта нет. Создать новый?")){
-      accounts[n]={password:p};
-      localStorage.setItem("accounts",JSON.stringify(accounts));
-    } else {
-      return;
-    }
+  if(!n || !p){
+    $("loginMsg").textContent="Заполни всё";
+    return;
   }
 
-  if(accounts[n].password!==p){
+  if(!accounts[n]){
+    accounts[n]={password:p};
+  } else if(accounts[n].password!==p){
     $("loginMsg").textContent="❌ Неверный пароль";
     return;
   }
 
-  currentUser=n;
   localStorage.setItem("accounts",JSON.stringify(accounts));
+  currentUser=n;
   localStorage.setItem("currentUser",n);
   load(); update();
   $("loginScreen").classList.remove("show");
@@ -119,23 +117,13 @@ $("logoutBtn").onclick=()=>{
   location.reload();
 };
 
-/* УДАЛЕНИЕ */
+/* УДАЛЕНИЕ (ФЕЙК) */
 $("deleteAccountBtn").onclick=()=>{
-  if(confirm("Удалить аккаунт НАВСЕГДА?")){
-    
-    // удалить аккаунт
-    delete accounts[currentUser];
-    localStorage.setItem("accounts", JSON.stringify(accounts));
+  $("deleteModal").classList.add("show");
+};
 
-    // удалить сохранение ИГРЫ
-    localStorage.removeItem("save_" + currentUser);
-
-    // выйти
-    localStorage.removeItem("currentUser");
-
-    alert("Аккаунт полностью удалён 😿");
-    location.reload();
-  }
+$("closeDeleteModal").onclick=()=>{
+  $("deleteModal").classList.remove("show");
 };
 
 /* СБРОС */
@@ -150,7 +138,7 @@ $("resetGame").onclick=()=>{
 $("checkDev").onclick=()=>{
   if($("devPass").value==="8923"){
     $("devPanel").style.display="block";
-    $("devMsg").textContent="Доступ открыт";
+    $("devMsg").textContent="Доступ открыт 😈";
   } else {
     $("devMsg").textContent="Неверный пароль";
   }
@@ -172,6 +160,4 @@ if(currentUser && accounts[currentUser]){
   load(); update();
   $("loginScreen").classList.remove("show");
   $("playerName").textContent=currentUser;
-} else {
-  $("loginScreen").classList.add("show");
 }
