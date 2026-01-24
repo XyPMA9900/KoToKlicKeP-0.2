@@ -1,8 +1,8 @@
 alert("JS ЗАГРУЗИЛСЯ");
 
-window.onload = () => {
-
 const $ = id => document.getElementById(id);
+
+window.onload = () => {
 
 /* ===== АККАУНТЫ ===== */
 let accounts = JSON.parse(localStorage.getItem("accounts")) || {};
@@ -49,50 +49,16 @@ function load(){
 /* ===== UI ===== */
 function update(){
   $("score").textContent = score+" 🐟";
-  renderShop();
-}
-
-function renderShop(){
-  const box = $("shopItems");
-  if(!box) return;
-  box.innerHTML="";
-  items.forEach(it=>{
-    const div=document.createElement("div");
-    div.className="shop-item"+(score<it.cost?" locked":"");
-    div.innerHTML = `
-      <b>${it.name}</b><br>
-      ${it.desc}<br>
-      Цена: ${it.cost}<br>
-      <button ${score<it.cost?"disabled":""}>Купить</button>
-    `;
-    div.querySelector("button").onclick=()=>{
-      if(score>=it.cost){
-        score-=it.cost;
-        it.buy();
-        save(); update();
-      }
-    };
-    box.appendChild(div);
-  });
 }
 
 /* ===== КОТ ===== */
-if($("cat")){
-  $("cat").onclick = ()=>{
-    let gain = clickPower;
-    if(Math.random()<critChance) gain*=5;
-    if(boostActive) gain*=2;
-    score+=gain;
-    save(); update();
-
-    $("cat").classList.add("active");
-    $("cat").textContent="😹";
-    setTimeout(()=>{
-      $("cat").textContent="🐱";
-      $("cat").classList.remove("active");
-    },200);
-  };
-}
+$("cat").onclick = ()=>{
+  let gain = clickPower;
+  if(Math.random()<critChance) gain*=5;
+  if(boostActive) gain*=2;
+  score+=gain;
+  save(); update();
+};
 
 /* ===== ПАССИВ ===== */
 setInterval(()=>{
@@ -101,93 +67,47 @@ setInterval(()=>{
 },1000);
 
 /* ===== ЛОГИН ===== */
-if($("loginBtn")){
-  $("loginBtn").onclick=()=>{
-    alert("КНОПКА НАЖАЛАСЬ");
-    const n=$("loginName").value.trim();
-    const p=$("loginPass").value.trim();
+$("loginBtn").onclick=()=>{
+  alert("КНОПКА НАЖАЛАСЬ");
 
-    if(!n || !p){
-      $("loginMsg").textContent="Заполни всё";
-      return;
-    }
+  const n=$("loginName").value.trim();
+  const p=$("loginPass").value.trim();
 
-    if(!accounts[n]){
-      accounts[n]={password:p};
-    } else if(accounts[n].password!==p){
-      $("loginMsg").textContent="❌ Неверный пароль";
-      return;
-    }
+  if(!n || !p){
+    $("loginMsg").textContent="Заполни всё";
+    return;
+  }
 
-    localStorage.setItem("accounts",JSON.stringify(accounts));
-    currentUser=n;
-    localStorage.setItem("currentUser",n);
-    load(); update();
-    $("loginScreen").classList.remove("show");
-    $("playerName").textContent=n;
-  };
-}
+  if(!accounts[n]){
+    accounts[n]={password:p};
+  } else if(accounts[n].password!==p){
+    $("loginMsg").textContent="❌ Неверный пароль";
+    return;
+  }
+
+  localStorage.setItem("accounts",JSON.stringify(accounts));
+  currentUser=n;
+  localStorage.setItem("currentUser",n);
+
+  load(); update();
+  $("loginScreen").classList.remove("show");
+  $("playerName").textContent=n;
+};
 
 /* ===== ВЫХОД ===== */
-if($("logoutBtn")){
-  $("logoutBtn").onclick=()=>{
-    localStorage.removeItem("currentUser");
-    location.reload();
-  };
-}
-
-/* ===== УДАЛЕНИЕ (ОТКЛЮЧЕНО) ===== */
-if($("deleteAccountBtn")){
-  $("deleteAccountBtn").onclick=()=>{
-    alert("🔩 К сожалению данная функция в разработке 🪛\nИспользуйте: сброс прогресса + выход");
-  };
-}
-
-/* ===== СБРОС ===== */
-if($("resetGame")){
-  $("resetGame").onclick=()=>{
-    if(confirm("Сбросить прогресс?")){
-      score=0; clickPower=1; autoClickers=0; critChance=0;
-      save(); update();
-    }
-  };
-}
-
-/* ===== DEV ===== */
-if($("checkDev")){
-  $("checkDev").onclick=()=>{
-    if($("devPass").value==="8923"){
-      $("devPanel").style.display="block";
-      $("devMsg").textContent="Доступ открыт 😈";
-    } else {
-      $("devMsg").textContent="Неверный пароль";
-    }
-  };
-}
-
-if($("giveMillion")){
-  $("giveMillion").onclick=()=>{
-    score+=1000000;
-    save(); update();
-  };
-}
-
-/* ===== МОДАЛКИ ===== */
-if($("openShop")) $("openShop").onclick=()=>$("shop").classList.add("show");
-if($("closeShop")) $("closeShop").onclick=()=>$("shop").classList.remove("show");
-if($("openSettings")) $("openSettings").onclick=()=>$("settings").classList.add("show");
-if($("closeSettings")) $("closeSettings").onclick=()=>$("settings").classList.remove("show");
+$("logoutBtn").onclick=()=>{
+  localStorage.removeItem("currentUser");
+  location.reload();
+};
 
 /* ===== АВТОСТАРТ ===== */
 if(currentUser && accounts[currentUser]){
   load(); update();
   $("loginScreen").classList.remove("show");
   $("playerName").textContent=currentUser;
-} else {
-  $("loginScreen").classList.add("show");
 }
 
-/* === KAZINO === */
+/* ===== KAZINO ===== */
 
 const kazino = {
   modes: [
@@ -225,8 +145,8 @@ kazinoButtons.forEach(btn=>{
 
     if(mode.test){
       kazinoResult.textContent = Math.random()<0.5
-        ? "✔️ ПРОБНИК: выиграл, но ничего не дали"
-        : "❌ ПРОБНИК: проиграл, но ничего не забрали";
+        ? "✔️ ПРОБНИК"
+        : "❌ ПРОБНИК";
       return;
     }
 
@@ -234,17 +154,11 @@ kazinoButtons.forEach(btn=>{
 
     if(Math.random() < mode.chance){
       let win = bet * mode.mult;
-
-      if(mode.x2chance && Math.random() < mode.x2chance){
-        win *= 2;
-        kazinoResult.textContent = "✨ X2 ПАСХАЛКА! +" + win;
-      } else {
-        kazinoResult.textContent = "✔️ ВЫИГРЫШ +" + win;
-      }
-
+      if(mode.x2chance && Math.random() < mode.x2chance) win *= 2;
       score += win;
+      kazinoResult.textContent = "✔️ +" + win;
     } else {
-      kazinoResult.textContent = "❌ ПРОИГРЫШ -"+bet;
+      kazinoResult.textContent = "❌ -" + bet;
     }
 
     save(); update();
@@ -255,4 +169,3 @@ $("openKazino").onclick = ()=> $("kazino").classList.add("show");
 $("closeKazino").onclick = ()=> $("kazino").classList.remove("show");
 
 };
-
