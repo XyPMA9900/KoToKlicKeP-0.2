@@ -91,6 +91,16 @@ resetGameBtn.onclick = () => {
   }
 };
 
+/* ДОСТУП РОЗРОБА */
+checkDevBtn.onclick = () => {
+  if (devPassInput.value === "8923") {
+    devMsg.textContent = "Доступ разрешён 😈";
+    devPanel.style.display = "block";
+  } else {
+    devMsg.textContent = "❌Пароль неверный❌";
+  }
+};
+
 /* МАГАЗИН */
 openShopBtn.onclick = () => shop.classList.add("show");
 closeShopBtn.onclick = () => shop.classList.remove("show");
