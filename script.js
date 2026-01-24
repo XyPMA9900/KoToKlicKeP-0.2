@@ -62,10 +62,22 @@ function renderShop(){
   });
 }
 
-$("cat").onclick=()=>{
-  let gain=clickPower;
+$("cat").onclick = ()=>{
+  let gain = clickPower;
   if(Math.random()<critChance) gain*=5;
+  if(boostActive) gain*=2;
   score+=gain;
+
+  saveGame();
+  updateUI();
+
+  cat.classList.add("active");
+  cat.textContent="😹";
+  setTimeout(()=>{
+    cat.textContent="🐱";
+    cat.classList.remove("active");
+  },200);
+};
   $("cat").classList.add("active");
   setTimeout(()=>$("cat").classList.remove("active"),100);
   save(); update();
