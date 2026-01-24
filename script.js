@@ -1,4 +1,3 @@
-alert("JS START");
 const $ = id => document.getElementById(id);
 let ONLINE = navigator.onLine;
 
@@ -32,6 +31,12 @@ const settings = $("settings");
 const resetGameBtn = $("resetGame");
 const logoutBtn = $("logoutBtn");
 const deleteAccountBtn = $("deleteAccountBtn");
+
+const devPass = $("devPass");
+const checkDev = $("checkDev");
+const devMsg = $("devMsg");
+const devPanel = $("devPanel");
+const giveMillion = $("giveMillion");
 
 /* кнопки */
 const upgradeBtn = $("upgradeClick");
@@ -75,14 +80,17 @@ async function loadData(key, def){
 loginBtn.onclick = async () => {
   const name = loginName.value;
   const pass = loginPass.value;
+
   if(!accounts[name]){
     accounts[name] = {password: pass};
     localStorage.setItem("accounts", JSON.stringify(accounts));
   }
+
   if(accounts[name].password !== pass){
     loginMsg.textContent = "Неверный пароль";
     return;
   }
+
   currentUser = name;
   localStorage.setItem("currentUser", name);
   await loadGame();
@@ -112,16 +120,16 @@ function saveGame(){
 /* UI */
 function updateUI(){
   scoreEl.textContent = `Рыбки: ${score} 🐟`;
-  upgradeBtn.textContent = `+1 (${10*clickPower})`;
-  autoBtn.textContent = `Авто (${50*(autoClickers+1)})`;
-  critBtn.textContent = `Крит`;
-  boostBtn.textContent = `Буст`;
-  superCatBtn.textContent = `Супер кот`;
-  doubleAutoBtn.textContent = `x2 авто`;
-  goldFishBtn.textContent = `Золото`;
-  megaClickBtn.textContent = `Мега`;
-  passiveBoostBtn.textContent = `Пассив`;
-  devFishBtn.textContent = `Разраб`;
+  upgradeBtn.textContent = `➕ Клик +1 (${10*clickPower})`;
+  autoBtn.textContent = `🤖 Авто (${50*(autoClickers+1)})`;
+  critBtn.textContent = `💥 Крит`;
+  boostBtn.textContent = `⚡ Буст`;
+  superCatBtn.textContent = `😼 Супер кот`;
+  doubleAutoBtn.textContent = `🤖 x2 авто`;
+  goldFishBtn.textContent = `🐠 Золото`;
+  megaClickBtn.textContent = `🔥 Мега`;
+  passiveBoostBtn.textContent = `🌱 Пассив`;
+  devFishBtn.textContent = `🧪 Разраб`;
 }
 
 /* клик */
@@ -132,11 +140,16 @@ cat.onclick = ()=>{
   score+=gain;
   saveGame();
   updateUI();
+
+  cat.classList.add("active");
   cat.textContent="😹";
-  setTimeout(()=>cat.textContent="🐱",200);
+  setTimeout(()=>{
+    cat.textContent="🐱";
+    cat.classList.remove("active");
+  },200);
 };
 
-/* магазин */
+/* модалки */
 openShopBtn.onclick = ()=>shop.classList.add("show");
 closeShopBtn.onclick = ()=>shop.classList.remove("show");
 openSettingsBtn.onclick = ()=>settings.classList.add("show");
@@ -173,6 +186,22 @@ setInterval(()=>{
   updateUI();
 },1000);
 
+/* dev */
+checkDev.onclick = ()=>{
+  if(devPass.value==="8923"){
+    devPanel.style.display="block";
+    devMsg.textContent="Доступ разрешён 😈";
+  } else {
+    devMsg.textContent="Неверный пароль";
+  }
+};
+
+giveMillion.onclick = ()=>{
+  score+=1_000_000;
+  saveGame();
+  updateUI();
+};
+
 /* выход */
 logoutBtn.onclick = ()=>{
   localStorage.removeItem("currentUser");
@@ -192,4 +221,3 @@ if(currentUser){
   loginScreen.classList.remove("show");
   playerNameEl.textContent=currentUser;
 }
-alert("JS END");
