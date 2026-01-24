@@ -60,30 +60,24 @@
   </div>
 </div>
 
-<!-- Firebase -->
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0AWaYCNNpEBzAYn1zMsAar4hY66qJ3LE",
+    authDomain: "kotoklikep-game.firebaseapp.com",
+    databaseURL: "https://kotoklikep-game-default-rtdb.firebaseio.com",
+    projectId: "kotoklikep-game",
+    storageBucket: "kotoklikep-game.appspot.com",
+    messagingSenderId: "1066435401451",
+    appId: "1:1066435401451:web:cdd04f944fcb8e11f308ae"
+  };
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA0AWaYCNNpEBzAYn1zMsAar4hY66qJ3LE",
-  authDomain: "kotoklikep-game.firebaseapp.com",
-  databaseURL: "https://kotoklikep-game-default-rtdb.firebaseio.com",
-  projectId: "kotoklikep-game",
-  storageBucket: "kotoklikep-game.firebasestorage.app",
-  messagingSenderId: "1006435401451",
-  appId: "1:1006435401451:web:cdd04f944fcb8e11f308ae",
-  measurementId: "G-K9XQC6MR99"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+</script>
 
 <script src="script.js"></script>
 </body>
