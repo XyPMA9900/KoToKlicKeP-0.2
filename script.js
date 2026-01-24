@@ -243,6 +243,7 @@ const deleteAccountBtn = $("deleteAccountBtn");
 
 /* ВЫЙТИ */
 logoutBtn.onclick = () => {
+  alert("LOGOUT");
   localStorage.removeItem("currentUser");
   location.reload();
 };
