@@ -3,6 +3,16 @@ document.addEventListener("touchmove", e => e.preventDefault(), { passive:false 
 
 const $ = id => document.getElementById(id);
 
+const openSettingsBtn = document.getElementById("openSettings");
+const closeSettingsBtn = document.getElementById("closeSettings");
+const settings = document.getElementById("settings");
+
+const resetGameBtn = document.getElementById("resetGame");
+const devPassInput = document.getElementById("devPass");
+const checkDevBtn = document.getElementById("checkDev");
+const devMsg = document.getElementById("devMsg");
+const devPanel = document.getElementById("devPanel");
+const giveMillionBtn = document.getElementById("giveMillion");
 const scoreEl = $("score");
 const cat = $("cat");
 
