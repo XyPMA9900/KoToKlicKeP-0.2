@@ -1,10 +1,10 @@
-window.addEventListener("scroll", () => {
-  window.scrollTo(0, 0);
-});
-
 document.addEventListener("touchmove", e => {
   e.preventDefault();
 }, { passive: false });
+
+window.addEventListener("scroll", () => {
+  window.scrollTo(0, 0);
+});
 
 document.addEventListener("gesturestart", e => e.preventDefault());
 document.addEventListener("gesturechange", e => e.preventDefault());
