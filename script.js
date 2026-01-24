@@ -232,3 +232,7 @@ kazinoButtons.forEach(btn=>{
     update();
   };
 };
+/* открыть казик */
+document.getElementById("openKazino").onclick = ()=>{
+  document.getElementById("kazino").classList.add("show");
+};
