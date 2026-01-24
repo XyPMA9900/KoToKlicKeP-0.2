@@ -2,31 +2,31 @@ const $ = id => document.getElementById(id);
 
 let score = 0;
 
-document.addEventListener("DOMContentLoaded", () => {
+// КНОПКА ВОЙТИ
+$("loginBtn").onclick = () => {
+  $("loginScreen").classList.remove("show");
+};
 
-  $("cat").onclick = () => {
-    score++;
-    $("score").textContent = score + " 🐟";
-  };
+// КОТ
+$("cat").onclick = () => {
+  score++;
+  $("score").textContent = score + " 🐟";
+};
 
-  $("loginBtn").onclick = () => {
-    $("loginScreen").classList.remove("show");
-  };
+// МАГАЗИН
+$("openShop").onclick = () => {
+  $("shop").classList.add("show");
+};
 
-  $("openShop").onclick = () => {
-    $("shop").classList.add("show");
-  };
+$("closeShop").onclick = () => {
+  $("shop").classList.remove("show");
+};
 
-  $("closeShop").onclick = () => {
-    $("shop").classList.remove("show");
-  };
+// НАСТРОЙКИ
+$("openSettings").onclick = () => {
+  $("settings").classList.add("show");
+};
 
-  $("openSettings").onclick = () => {
-    $("settings").classList.add("show");
-  };
-
-  $("closeSettings").onclick = () => {
-    $("settings").classList.remove("show");
-  };
-
-});
+$("closeSettings").onclick = () => {
+  $("settings").classList.remove("show");
+};
