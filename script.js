@@ -48,7 +48,11 @@ document.getElementById("autoClick").onclick = () => {
 setInterval(() => {
   if (autoClickers > 0) {
     score += autoClickers;
-    updateUI();
+    updateUI(document.getElementById("upgradeClick").textContent =
+  `➕ +1 за клик (${10 * clickPower} 🐟)`;
+
+document.getElementById("autoClick").textContent =
+  `🤖 Автокликер (${50 * (autoClickers + 1)} 🐟)`;);
     saveGame();
   }
 }, 1000);
