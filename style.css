@@ -16,6 +16,7 @@ html, body {
 #score {
   font-size: 64px;
   font-weight: bold;
+  text-align: center;
 }
 
 #cat {
@@ -42,6 +43,11 @@ button:active {
   transform: scale(0.9);
 }
 
+.gray {
+  background:#ccc;
+  color:#666;
+}
+
 .shop-item {
   background: #eee;
   margin: 6px;
@@ -63,19 +69,7 @@ button:active {
   align-items: center;
   opacity: 0;
   pointer-events: none;
-}
-
-.modal {
   transition: 0.25s;
-}
-
-.modal-box {
-  transform: scale(0.8);
-  transition: 0.25s;
-}
-
-.modal.show .modal-box {
-  transform: scale(1);
 }
 
 .modal.show {
@@ -88,4 +82,10 @@ button:active {
   padding: 20px;
   border-radius: 14px;
   text-align: center;
+  transform: scale(0.8);
+  transition: 0.25s;
+}
+
+.modal.show .modal-box {
+  transform: scale(1);
 }
