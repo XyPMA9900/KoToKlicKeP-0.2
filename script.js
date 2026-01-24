@@ -1,24 +1,21 @@
-/* Блокировка скролла */
-document.addEventListener("touchmove", e => e.preventDefault(), { passive:false });
 const $ = id => document.getElementById(id);
+let ONLINE = navigator.onLine;
 
-/* ================= АККАУНТЫ ================= */
+if(!ONLINE){
+  alert("Ошибка подключения к интернету, запущена оффлайн версия игры (ошибка 1)");
+}
 
+/* аккаунты */
 let accounts = JSON.parse(localStorage.getItem("accounts")) || {};
 let currentUser = localStorage.getItem("currentUser");
 
+/* элементы */
 const loginScreen = $("loginScreen");
 const loginName = $("loginName");
 const loginPass = $("loginPass");
 const loginBtn = $("loginBtn");
 const loginMsg = $("loginMsg");
 const playerNameEl = $("playerName");
-
-function saveAccounts(){
-  localStorage.setItem("accounts", JSON.stringify(accounts));
-}
-
-/* ================= ЭЛЕМЕНТЫ ================= */
 
 const scoreEl = $("score");
 const cat = $("cat");
@@ -32,16 +29,10 @@ const closeSettingsBtn = $("closeSettings");
 const settings = $("settings");
 
 const resetGameBtn = $("resetGame");
-const devPassInput = $("devPass");
-const checkDevBtn = $("checkDev");
-const devMsg = $("devMsg");
-const devPanel = $("devPanel");
-const giveMillionBtn = $("giveMillion");
-
 const logoutBtn = $("logoutBtn");
 const deleteAccountBtn = $("deleteAccountBtn");
 
-/* Кнопки магазина */
+/* кнопки */
 const upgradeBtn = $("upgradeClick");
 const autoBtn = $("autoClick");
 const critBtn = $("crit");
@@ -53,8 +44,7 @@ const megaClickBtn = $("megaClick");
 const passiveBoostBtn = $("passiveBoost");
 const devFishBtn = $("devFish");
 
-/* ================= ДАННЫЕ ИГРЫ ================= */
-
+/* данные */
 let score = 0;
 let clickPower = 1;
 let autoClickers = 0;
@@ -62,173 +52,142 @@ let critChance = 0;
 let passiveMultiplier = 1;
 let boostActive = false;
 
-/* ================= АККАУНТ ================= */
-
-function loadUser(){
-  const u = accounts[currentUser];
-  score = u.score;
-  clickPower = u.clickPower;
-  autoClickers = u.autoClickers;
-  critChance = u.critChance;
-  passiveMultiplier = u.passiveMultiplier;
-  updateUI();
+/* firebase/local */
+function saveData(key, data){
+  if(ONLINE){
+    db.ref("users/"+currentUser+"/"+key).set(data);
+  } else {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
 }
 
-/* ЛОГИН / РЕГИСТРАЦИЯ */
-loginBtn.onclick = () => {
-  const name = loginName.value.trim();
-  const pass = loginPass.value.trim();
+async function loadData(key, def){
+  if(ONLINE){
+    const snap = await db.ref("users/"+currentUser+"/"+key).once("value");
+    return snap.val() ?? def;
+  } else {
+    return JSON.parse(localStorage.getItem(key)) ?? def;
+  }
+}
 
-  if(!name || !pass){
-    loginMsg.textContent = "Заполни всё";
+/* login */
+loginBtn.onclick = async () => {
+  const name = loginName.value;
+  const pass = loginPass.value;
+  if(!accounts[name]){
+    accounts[name] = {password: pass};
+    localStorage.setItem("accounts", JSON.stringify(accounts));
+  }
+  if(accounts[name].password !== pass){
+    loginMsg.textContent = "Неверный пароль";
     return;
   }
-
-  if(!accounts[name]){
-    accounts[name] = {
-      password: pass,
-      score: 0,
-      clickPower: 1,
-      autoClickers: 0,
-      critChance: 0,
-      passiveMultiplier: 1
-    };
-    loginMsg.textContent = "Аккаунт создан 😎";
-  } else {
-    if(accounts[name].password !== pass){
-      loginMsg.textContent = "Неверный пароль ❌";
-      return;
-    }
-    loginMsg.textContent = "Добро пожаловать 😊";
-  }
-
   currentUser = name;
-  localStorage.setItem("currentUser", currentUser);
-  saveAccounts();
-  loadUser();
+  localStorage.setItem("currentUser", name);
+  await loadGame();
   loginScreen.classList.remove("show");
   playerNameEl.textContent = name;
 };
 
-/* ================= СОХРАНЕНИЕ ИГРЫ ================= */
-
-function saveGame(){
-  if(!currentUser) return;
-  accounts[currentUser] = {
-    password: accounts[currentUser].password,
-    score,
-    clickPower,
-    autoClickers,
-    critChance,
-    passiveMultiplier
-  };
-  saveAccounts();
+/* загрузка */
+async function loadGame(){
+  score = await loadData("score",0);
+  clickPower = await loadData("clickPower",1);
+  autoClickers = await loadData("autoClickers",0);
+  critChance = await loadData("critChance",0);
+  passiveMultiplier = await loadData("passiveMultiplier",1);
+  updateUI();
 }
 
-/* ================= UI ================= */
+/* сохранение */
+function saveGame(){
+  saveData("score",score);
+  saveData("clickPower",clickPower);
+  saveData("autoClickers",autoClickers);
+  saveData("critChance",critChance);
+  saveData("passiveMultiplier",passiveMultiplier);
+}
 
+/* UI */
 function updateUI(){
   scoreEl.textContent = `Рыбки: ${score} 🐟`;
-
-  upgradeBtn.textContent = `➕ Клик +1 (${10 * clickPower})`;
-  autoBtn.textContent = `🤖 Авто (${50 * (autoClickers + 1)})`;
-  critBtn.textContent = `💥 Крит (1000)`;
-  boostBtn.textContent = `⚡ Буст x2 (500)`;
-  superCatBtn.textContent = `😼 Супер кот (2000)`;
-  doubleAutoBtn.textContent = `🤖 x2 авто (1500)`;
-  goldFishBtn.textContent = `🐠 Золотая рыба (3000)`;
-  megaClickBtn.textContent = `🔥 Мега клик (4000)`;
-  passiveBoostBtn.textContent = `🌱 Пассив x2 (2500)`;
-  devFishBtn.textContent = `🧪 Разраб (9999)`;
+  upgradeBtn.textContent = `+1 (${10*clickPower})`;
+  autoBtn.textContent = `Авто (${50*(autoClickers+1)})`;
+  critBtn.textContent = `Крит`;
+  boostBtn.textContent = `Буст`;
+  superCatBtn.textContent = `Супер кот`;
+  doubleAutoBtn.textContent = `x2 авто`;
+  goldFishBtn.textContent = `Золото`;
+  megaClickBtn.textContent = `Мега`;
+  passiveBoostBtn.textContent = `Пассив`;
+  devFishBtn.textContent = `Разраб`;
 }
 
-/* ================= КЛИК ================= */
-
-cat.onclick = () => {
+/* клик */
+cat.onclick = ()=>{
   let gain = clickPower;
-  if(Math.random() < critChance) gain *= 5;
-  if(boostActive) gain *= 2;
-
-  score += gain;
-  updateUI();
+  if(Math.random()<critChance) gain*=5;
+  if(boostActive) gain*=2;
+  score+=gain;
   saveGame();
-
-  cat.textContent = "😹";
-  cat.classList.add("active");
-  setTimeout(()=>{
-    cat.textContent = "🐱";
-    cat.classList.remove("active");
-  },200);
+  updateUI();
+  cat.textContent="😹";
+  setTimeout(()=>cat.textContent="🐱",200);
 };
 
-/* ================= МОДАЛКИ ================= */
+/* магазин */
+openShopBtn.onclick = ()=>shop.classList.add("show");
+closeShopBtn.onclick = ()=>shop.classList.remove("show");
+openSettingsBtn.onclick = ()=>settings.classList.add("show");
+closeSettingsBtn.onclick = ()=>settings.classList.remove("show");
 
-openShopBtn.onclick = () => shop.classList.add("show");
-closeShopBtn.onclick = () => shop.classList.remove("show");
-openSettingsBtn.onclick = () => settings.classList.add("show");
-closeSettingsBtn.onclick = () => settings.classList.remove("show");
-
-/* ================= ПОКУПКИ ================= */
-
-function buy(cost, effect){
-  if(score >= cost){
-    score -= cost;
-    effect();
-    updateUI();
+/* покупки */
+function buy(cost,fn){
+  if(score>=cost){
+    score-=cost;
+    fn();
     saveGame();
-  } else {
-    alert("Не хватает рыб!");
+    updateUI();
   }
 }
 
-upgradeBtn.onclick = () => buy(10 * clickPower, ()=>clickPower++);
-autoBtn.onclick = () => buy(50 * (autoClickers + 1), ()=>autoClickers++);
-critBtn.onclick = () => buy(1000, ()=>critChance += 0.05);
-boostBtn.onclick = () => buy(500, ()=>{
-  boostActive = true;
-  setTimeout(()=>boostActive=false, 15000);
+upgradeBtn.onclick = ()=>buy(10*clickPower,()=>clickPower++);
+autoBtn.onclick = ()=>buy(50*(autoClickers+1),()=>autoClickers++);
+critBtn.onclick = ()=>buy(1000,()=>critChance+=0.05);
+boostBtn.onclick = ()=>buy(500,()=>{
+  boostActive=true;
+  setTimeout(()=>boostActive=false,15000);
 });
-superCatBtn.onclick = () => buy(2000, ()=>clickPower += 5);
-doubleAutoBtn.onclick = () => buy(1500, ()=>autoClickers *= 2);
-goldFishBtn.onclick = () => buy(3000, ()=>score += 5000);
-megaClickBtn.onclick = () => buy(4000, ()=>clickPower *= 2);
-passiveBoostBtn.onclick = () => buy(2500, ()=>passiveMultiplier *= 2);
-devFishBtn.onclick = () => buy(9999, ()=>score += 100000);
+superCatBtn.onclick = ()=>buy(2000,()=>clickPower+=5);
+doubleAutoBtn.onclick = ()=>buy(1500,()=>autoClickers*=2);
+goldFishBtn.onclick = ()=>buy(3000,()=>score+=5000);
+megaClickBtn.onclick = ()=>buy(4000,()=>clickPower*=2);
+passiveBoostBtn.onclick = ()=>buy(2500,()=>passiveMultiplier*=2);
+devFishBtn.onclick = ()=>buy(9999,()=>score+=100000);
 
-/* ================= ПАССИВ ================= */
-
+/* пассив */
 setInterval(()=>{
-  score += autoClickers * passiveMultiplier;
-  updateUI();
+  score+=autoClickers*passiveMultiplier;
   saveGame();
+  updateUI();
 },1000);
 
-/* ================= ВЫХОД ================= */
-
-logoutBtn.onclick = () => {
+/* выход */
+logoutBtn.onclick = ()=>{
   localStorage.removeItem("currentUser");
-  location.reload(true);
+  location.reload();
 };
 
-/* ================= УДАЛЕНИЕ ================= */
-
-deleteAccountBtn.onclick = () => {
-  if(confirm("Удалить аккаунт навсегда? 😿")){
-    delete accounts[currentUser];
-    saveAccounts();
-    localStorage.removeItem("currentUser");
-    location.reload(true);
-  }
+deleteAccountBtn.onclick = ()=>{
+  delete accounts[currentUser];
+  localStorage.setItem("accounts",JSON.stringify(accounts));
+  localStorage.removeItem("currentUser");
+  location.reload();
 };
 
-/* ================= СТАРТ ================= */
-
-if(currentUser && accounts[currentUser]){
-  loadUser();
+/* старт */
+if(currentUser){
+  loadGame();
   loginScreen.classList.remove("show");
-  playerNameEl.textContent = currentUser;
-} else {
-  loginScreen.classList.add("show");
+  playerNameEl.textContent=currentUser;
 }
-
-db.ref("test").set("helloprint");
