@@ -174,8 +174,10 @@ $("openSettings").onclick=()=>$("settings").classList.add("show");
 $("closeSettings").onclick=()=>$("settings").classList.remove("show");
 
 /* АВТОСТАРТ */
-if(currentUser){
+if(currentUser && accounts[currentUser]){
   load(); update();
   $("loginScreen").classList.remove("show");
   $("playerName").textContent=currentUser;
+} else {
+  $("loginScreen").classList.add("show");
 }
