@@ -1,3 +1,4 @@
+alert("JS START");
 html, body {
   margin: 0;
   height: 100%;
@@ -59,3 +60,4 @@ button {
   border-radius: 14px;
   text-align: center;
 }
+alert("JS END");
