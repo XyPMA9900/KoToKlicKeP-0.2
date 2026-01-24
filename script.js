@@ -1,3 +1,5 @@
+alert("JS ЗАГРУЗИЛСЯ");
+
 window.onload = () => {
 
 const $ = id => document.getElementById(id);
