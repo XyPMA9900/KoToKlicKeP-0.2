@@ -1,22 +1,63 @@
-<p id="score">Рыбки: 0 🐟</p>
-<div id="cat">🐱</div>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>KotoClicker</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial;
+      background: #f5f5f5;
+    }
 
-<script>
-  // загрузка
-  let score = Number(localStorage.getItem("score")) || 0;
+    #score {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
 
-  const scoreEl = document.getElementById("score");
-  const cat = document.getElementById("cat");
+    #cat {
+      font-size: 120px;
+      user-select: none;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
 
-  // показать сохранённое
-  scoreEl.textContent = "Рыбки: " + score + " 🐟";
+    #cat.active {
+      transform: scale(0.9);
+    }
+  </style>
+</head>
+<body>
 
-  // клик
-  cat.onclick = () => {
-    score++;
-    scoreEl.textContent = "Рыбки: " + score + " 🐟";
+  <div id="score">Рыбки: 0 🐟</div>
+  <div id="cat">🐱</div>
 
-    // сохранить
-    localStorage.setItem("score", score);
-  };
-</script>
+  <script>
+    let score = Number(localStorage.getItem("score")) || 0;
+
+    const scoreEl = document.getElementById("score");
+    const cat = document.getElementById("cat");
+
+    function update() {
+      scoreEl.textContent = "Рыбки: " + score + " 🐟";
+      localStorage.setItem("score", score);
+    }
+
+    cat.addEventListener("click", () => {
+      score++;
+      update();
+
+      // анимация
+      cat.classList.add("active");
+      setTimeout(() => cat.classList.remove("active"), 100);
+    });
+
+    update();
+  </script>
+</body>
+</html>
