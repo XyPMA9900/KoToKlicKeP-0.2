@@ -1,32 +1,9 @@
-const $ = id => document.getElementById(id);
+alert("JS ЗАГРУЗИЛСЯ");
 
-let score = 0;
+const btn = document.getElementById("loginBtn");
+const text = document.getElementById("text");
 
-// КНОПКА ВОЙТИ
-$("loginBtn").onclick = () => {
-  $("loginScreen").classList.remove("show");
-};
-
-// КОТ
-$("cat").onclick = () => {
-  score++;
-  $("score").textContent = score + " 🐟";
-};
-
-// МАГАЗИН
-$("openShop").onclick = () => {
-  $("shop").classList.add("show");
-};
-
-$("closeShop").onclick = () => {
-  $("shop").classList.remove("show");
-};
-
-// НАСТРОЙКИ
-$("openSettings").onclick = () => {
-  $("settings").classList.add("show");
-};
-
-$("closeSettings").onclick = () => {
-  $("settings").classList.remove("show");
+btn.onclick = function () {
+  alert("КНОПКА НАЖАТА");
+  text.textContent = "ВОШЁЛ";
 };
