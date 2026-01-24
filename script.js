@@ -92,15 +92,25 @@ $("loginBtn").onclick=()=>{
   const p=$("loginPass").value;
 
   if(!accounts[n]){
-    accounts[n]={password:p};
-    $("loginMsg").textContent="Аккаунт создан";
+    if(confirm("Аккаунта нет. Создать новый?")){
+      accounts[n]={password:p};
+      localStorage.setItem("accounts",JSON.stringify(accounts));
+    } else {
+      return;
+    }
   }
 
   if(accounts[n].password!==p){
-    $("loginMsg").textContent="Неверный пароль";
+    $("loginMsg").textContent="❌ Неверный пароль";
     return;
   }
 
+  currentUser=n;
+  localStorage.setItem("currentUser",n);
+  load(); update();
+  $("loginScreen").classList.remove("show");
+  $("playerName").textContent=n;
+};
   currentUser=n;
   localStorage.setItem("accounts",JSON.stringify(accounts));
   localStorage.setItem("currentUser",n);
