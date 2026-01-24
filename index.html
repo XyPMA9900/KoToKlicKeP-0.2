@@ -2,80 +2,41 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" 
-        content="width=device-width, initial-scale=1.0, 
-                 maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>KotoClicker 🐱</title>
-
-  <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-      overscroll-behavior: none;
-      touch-action: manipulation;
-      user-select: none;
-      font-family: Arial;
-      background: #f5f5f5;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #score {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
-
-    #cat {
-      font-size: 180px;
-      cursor: pointer;
-      transition: transform 0.1s;
-    }
-
-    #cat.active {
-      transform: scale(0.9);
-    }
-
-    .shop {
-      margin-top: 30px;
-      display: flex;
-      gap: 10px;
-      flex-direction: column;
-    }
-
-    button {
-      font-size: 20px;
-      padding: 10px 15px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<div id="app">
   <div id="score">Рыбки: 0 🐟</div>
   <div id="cat">🐱</div>
 
-  <div class="shop">
-    <button id="upgradeClick">➕ +1 за клик (10 🐟)</button>
-    <button id="autoClick">🤖 Автокликер (50 🐟)</button>
-  </div>
+  <button id="openShop">🛒 Магазин</button>
+</div>
 
-  <script src="script.js"></script>
-</body>
-</html>
-<button id="openShop">🛒 Магазин</button>
-
+<!-- МОДАЛЬНЫЙ МАГАЗИН -->
 <div id="shop" class="modal">
   <div class="modal-box">
     <h2>Магазин</h2>
+
     <button id="upgradeClick"></button>
     <button id="autoClick"></button>
+    <button id="crit"></button>
+    <button id="boost"></button>
+    <button id="superCat"></button>
+    <button id="doubleAuto"></button>
+    <button id="goldFish"></button>
+    <button id="megaClick"></button>
+    <button id="passiveBoost"></button>
+    <button id="devFish"></button>
+
+    <br><br>
     <button id="closeShop">❌ Закрыть</button>
   </div>
 </div>
+
+<script src="script.js"></script>
+</body>
+</html>
