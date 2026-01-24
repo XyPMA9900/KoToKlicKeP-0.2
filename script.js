@@ -161,3 +161,74 @@ if(currentUser && accounts[currentUser]){
   $("loginScreen").classList.remove("show");
   $("playerName").textContent=currentUser;
 }
+
+/* === KAZINO === */
+
+const kazino = {
+  modes: [
+    {name:"☠️ ULTRAHARDER ☠️", chance:0.000001, mult:1000000},
+    {name:"☠️ ULTRAHARD ☠️",   chance:0.0001,   mult:1000},
+    {name:"HARD",            chance:0.01,     mult:500},
+    {name:"RISK&RICH",       chance:0.05,     mult:200},
+    {name:"RISK",            chance:0.15,     mult:180},
+    {name:"NORMALLY+",       chance:0.20,     mult:150},
+    {name:"PASHALKO",        chance:0.67,     mult:14, x2chance:0.88},
+    {name:"EZ WIN",          chance:0.65,     mult:2},
+    {name:"NORMALLY",        chance:0.50,     mult:3},
+    {name:"PROBNIK",         chance:0.50,     mult:1, test:true}
+  ]
+};
+
+// DOM
+const kazinoInput = document.getElementById("kazinoBet");
+const kazinoResult = document.getElementById("kazinoResult");
+const kazinoButtons = document.querySelectorAll("[data-kazino]");
+
+// запуск режима
+kazinoButtons.forEach(btn=>{
+  btn.onclick = ()=>{
+    const mode = kazino.modes[btn.dataset.kazino];
+    const bet = Number(kazinoInput.value);
+
+    if(!bet || bet<=0){
+      kazinoResult.textContent = "Введите ставку!";
+      return;
+    }
+
+    if(score < bet){
+      kazinoResult.textContent = "Не хватает рыб 🐟";
+      return;
+    }
+
+    // PROBNIK
+    if(mode.test){
+      if(Math.random() < mode.chance){
+        kazinoResult.textContent = "✔️ ПРОБНИК: выиграл, но ничего не дали";
+      } else {
+        kazinoResult.textContent = "❌ ПРОБНИК: проиграл, но ничего не забрали";
+      }
+      return;
+    }
+
+    score -= bet;
+
+    if(Math.random() < mode.chance){
+      let win = bet * mode.mult;
+
+      // пасхалко x2
+      if(mode.x2chance && Math.random() < mode.x2chance){
+        win *= 2;
+        kazinoResult.textContent = "✔️ X2 ПАСХАЛКА! +" + win;
+      } else {
+        kazinoResult.textContent = "✔️ ВЫИГРЫШ +" + win;
+      }
+
+      score += win;
+    } else {
+      kazinoResult.textContent = "❌ ПРОИГРЫШ -"+bet;
+    }
+
+    save(); 
+    update();
+  };
+};
