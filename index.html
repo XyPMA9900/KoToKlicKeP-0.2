@@ -1,21 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-   <meta name="viewport" 
-      content="width=device-width, initial-scale=1.0, 
-               maximum-scale=1.0, user-scalable=no">
   <meta charset="UTF-8">
-  <title>KotoClicker</title>
+  <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0, 
+                 maximum-scale=1.0, user-scalable=no">
+  <title>KotoClicker 🐱</title>
+
   <style>
-    body {
+    html, body {
       margin: 0;
-      height: 100vh;
+      height: 100%;
+      overscroll-behavior: none;
+      touch-action: manipulation;
+      user-select: none;
+      font-family: Arial;
+      background: #f5f5f5;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: Arial;
-      background: #f5f5f5;
     }
 
     #score {
@@ -25,19 +32,27 @@
 
     #cat {
       font-size: 180px;
-      user-select: none;
       cursor: pointer;
       transition: transform 0.1s;
     }
 
-<div class="shop">
-  <button id="upgradeClick">➕ +1 за клик (10 🐟)</button>
-  <button id="autoClick">🤖 Автокликер (50 🐟)</button>
-</div>
-<button id="openShop">🛒 Магазин</button>
-
     #cat.active {
       transform: scale(0.9);
+    }
+
+    .shop {
+      margin-top: 30px;
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -46,27 +61,11 @@
   <div id="score">Рыбки: 0 🐟</div>
   <div id="cat">🐱</div>
 
-  <script>
-    let score = Number(localStorage.getItem("score")) || 0;
+  <div class="shop">
+    <button id="upgradeClick">➕ +1 за клик (10 🐟)</button>
+    <button id="autoClick">🤖 Автокликер (50 🐟)</button>
+  </div>
 
-    const scoreEl = document.getElementById("score");
-    const cat = document.getElementById("cat");
-
-    function update() {
-      scoreEl.textContent = "Рыбки: " + score + " 🐟";
-      localStorage.setItem("score", score);
-    }
-
-    cat.addEventListener("click", () => {
-      score++;
-      update();
-
-      // анимация
-      cat.classList.add("active");
-      setTimeout(() => cat.classList.remove("active"), 100);
-    });
-
-    update();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
