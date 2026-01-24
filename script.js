@@ -3,6 +3,12 @@ document.addEventListener("touchmove", e => e.preventDefault(), { passive:false 
 window.addEventListener("scroll", () => window.scrollTo(0,0));
 
 /* === ЭЛЕМЕНТЫ === */
+const openShopBtn = document.getElementById("openShop");
+const closeShopBtn = document.getElementById("closeShop");
+const shop = document.getElementById("shop");
+
+openShopBtn.onclick = () => shop.classList.add("show");
+closeShopBtn.onclick = () => shop.classList.remove("show");
 const scoreEl = document.getElementById("score");
 const cat = document.getElementById("cat");
 const upgradeBtn = document.getElementById("upgradeClick");
