@@ -1,6 +1,6 @@
-window.onload = () => {
-
 const $ = id => document.getElementById(id);
+
+window.onload = () => {
 
 /* ===== АККАУНТЫ ===== */
 let accounts = JSON.parse(localStorage.getItem("accounts")) || {};
