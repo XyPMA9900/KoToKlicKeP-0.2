@@ -23,6 +23,7 @@ html, body {
 #cat {
   font-size: 260px;
   cursor: pointer;
+  transition: transform 0.1s;
 }
 
 #cat.active {
