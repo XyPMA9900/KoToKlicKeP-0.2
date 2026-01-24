@@ -25,6 +25,12 @@ html, body {
   word-break: break-all;
 }
 
+@media (max-width: 400px) {
+  #score {
+    font-size: 56px;
+  }
+}
+
 #cat {
   font-size: 280px;
   cursor: pointer;
