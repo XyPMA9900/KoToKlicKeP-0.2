@@ -9,19 +9,19 @@
 </head>
 <body>
 
-<!-- ЭКРАН ЛОГИНА -->
+<!-- LOGIN -->
 <div id="loginScreen" class="modal show">
   <div class="modal-box">
     <h2>KotoClicker 🐱</h2>
     <input id="loginName" placeholder="Ник">
     <input id="loginPass" type="password" placeholder="Пароль">
-    <button id="loginBtn">Войти</button>
+    <button id="loginBtn">Войти / Создать</button>
     <p id="loginMsg"></p>
   </div>
 </div>
 
 <div id="app">
-  <div id="playerName" style="margin-bottom:10px;"></div>
+  <div id="playerName"></div>
   <div id="score">Рыбки: 0 🐟</div>
   <div id="cat">🐱</div>
 
@@ -29,11 +29,10 @@
   <button id="openSettings">⚙️ Настройки</button>
 </div>
 
-<!-- МАГАЗИН -->
+<!-- SHOP -->
 <div id="shop" class="modal">
   <div class="modal-box">
     <h2>Магазин</h2>
-
     <button id="upgradeClick"></button>
     <button id="autoClick"></button>
     <button id="crit"></button>
@@ -44,56 +43,33 @@
     <button id="megaClick"></button>
     <button id="passiveBoost"></button>
     <button id="devFish"></button>
-
     <br><br>
     <button id="closeShop">❌ Закрыть</button>
   </div>
 </div>
 
-<!-- НАСТРОЙКИ -->
+<!-- SETTINGS -->
 <div id="settings" class="modal">
   <div class="modal-box">
     <h2>Настройки</h2>
-
-    <button id="resetGame">🗑 Сбросить прогресс</button>
-
-    <hr><br>
-
-    <hr><br>
-
-    <button id="logoutBtn">🚪 Выйти из аккаунта</button>
-     
-<button id="deleteAccountBtn">🗑 Удалить аккаунт</button>
-
-    <h3>🧪 Доступ разработчика</h3>
-    <input id="devPass" placeholder="Введите пароль">
-    <button id="checkDev">Войти</button>
-    <p id="devMsg"></p>
-
-    <div id="devPanel" style="display:none;">
-      <button id="giveMillion">💰 Получить 1 000 000 рыб</button>
-    </div>
-
-    <br>
-    <button id="closeSettings">❌ Закрыть</button>
+    <button id="resetGame">🗑 Сброс прогресса</button>
+    <button id="logoutBtn">🚪 Выйти</button>
+    <button id="deleteAccountBtn">❌ Удалить аккаунт</button>
+    <br><br>
+    <button id="closeSettings">Закрыть</button>
   </div>
 </div>
 
-<!-- Firebase SDK -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-
 <script>
   const firebaseConfig = {
-    apiKey: "AIzaSyA0AWaYCNNpEBzAYn1zMsAar4hY66qJ3LE",
-    authDomain: "kotoklikep-game.firebaseapp.com",
-    databaseURL: "https://kotoklikep-game-default-rtdb.firebaseio.com",
-    projectId: "kotoklikep-game",
-    storageBucket: "kotoklikep-game.appspot.com",
-    messagingSenderId: "1066435401451",
-    appId: "1:1066435401451:web:..."
+    apiKey: "ТВОЙ_KEY",
+    authDomain: "ТВОЙ",
+    databaseURL: "ТВОЙ",
+    projectId: "ТВОЙ"
   };
-
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
 </script>
