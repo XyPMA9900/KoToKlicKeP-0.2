@@ -55,8 +55,8 @@ function saveGame(){
 function updateUI(){
   scoreEl.textContent = `Рыбки: ${score} 🐟`;
 
-  upgradeBtn.textContent = `➕ Клик +1 (${10*clickPower})`;
-  autoBtn.textContent = `🤖 Авто (${50*(autoClickers+1)})`;
+  upgradeBtn.textContent = `➕ Клик +1 (${10 * clickPower})`;
+  autoBtn.textContent = `🤖 Авто (${50 * (autoClickers + 1)})`;
   critBtn.textContent = `💥 Крит (1000)`;
   boostBtn.textContent = `⚡ Буст x2 (500)`;
   superCatBtn.textContent = `😼 Супер кот (2000)`;
@@ -67,7 +67,7 @@ function updateUI(){
   devFishBtn.textContent = `🧪 Разраб (9999)`;
 }
 
-/* Клик */
+/* Клик по коту */
 cat.onclick = () => {
   let gain = clickPower;
   if(Math.random() < critChance) gain *= 5;
@@ -104,13 +104,15 @@ function buy(cost, effect){
 }
 
 /* Товары */
-upgradeBtn.onclick = () => buy(10*clickPower, ()=>clickPower++);
-autoBtn.onclick = () => buy(50*(autoClickers+1), ()=>autoClickers++);
+upgradeBtn.onclick = () => buy(10 * clickPower, ()=>clickPower++);
+autoBtn.onclick = () => buy(50 * (autoClickers + 1), ()=>autoClickers++);
 critBtn.onclick = () => buy(1000, ()=>critChance += 0.05);
+
 boostBtn.onclick = () => buy(500, ()=>{
   boostActive = true;
   setTimeout(()=>boostActive=false, 15000);
 });
+
 superCatBtn.onclick = () => buy(2000, ()=>clickPower += 5);
 doubleAutoBtn.onclick = () => buy(1500, ()=>autoClickers *= 2);
 goldFishBtn.onclick = () => buy(3000, ()=>score += 5000);
@@ -150,4 +152,5 @@ giveMillionBtn.onclick = () => {
   saveGame();
 };
 
+/* Старт */
 updateUI();
