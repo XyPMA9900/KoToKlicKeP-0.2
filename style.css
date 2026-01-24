@@ -14,14 +14,14 @@ html, body {
 }
 
 #score {
-  font-size: 64px;
-  font-weight: bold;
+  font-size: 48px;
+  margin-bottom: 10px;
 }
 
 #cat {
-  font-size: 220px;
+  font-size: 200px;
   cursor: pointer;
-  transition: transform 0.1s;
+  transition: 0.1s;
 }
 
 #cat:active {
@@ -29,18 +29,11 @@ html, body {
 }
 
 button {
-  font-size: 18px;
   padding: 10px 16px;
   margin: 6px;
-  border-radius: 12px;
+  font-size: 18px;
+  border-radius: 10px;
   border: none;
-  cursor: pointer;
-  background: #e0e0e0;
-  transition: 0.15s;
-}
-
-button:active {
-  transform: scale(0.9);
 }
 
 .modal {
@@ -63,10 +56,9 @@ button:active {
 .modal-box {
   background: white;
   padding: 20px;
-  border-radius: 16px;
+  border-radius: 14px;
   text-align: center;
-  min-width: 260px;
-  transform: scale(0.7);
+  transform: scale(0.8);
   transition: 0.25s;
 }
 
