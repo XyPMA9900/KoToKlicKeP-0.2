@@ -92,30 +92,23 @@ button:active {
 
 /* === KAZINO === */
 
-#kazino input {
-  font-size: 18px;
-  padding: 8px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  width: 80%;
-  text-align: center;
-}
-
-.kazino-grid {
+#kazinoModes {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
   margin: 10px 0;
 }
 
-.kazino-grid button {
-  background: linear-gradient(135deg,#222,#555);
-  color: white;
-  font-size: 14px;
+#kazino input {
+  width: 90%;
+  padding: 8px;
+  font-size: 16px;
+  margin: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 #kazinoResult {
-  font-size: 20px;
+  font-weight: bold;
   margin: 10px;
-  min-height: 30px;
 }
