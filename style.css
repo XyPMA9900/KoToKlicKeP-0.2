@@ -42,6 +42,12 @@ button, input {
   position: relative;
 }
 
+#score {
+  font-size: 48px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
 /* МОДАЛЬНЫЕ ОКНА */
 .modal {
   position: fixed;
