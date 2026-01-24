@@ -41,4 +41,25 @@
 
 <script src="script.js"></script>
 </body>
+<div id="settings" class="modal">
+  <div class="modal-box">
+    <h2>Настройки</h2>
+
+    <button id="resetGame">🗑 Сбросить прогресс</button>
+
+    <hr><br>
+
+    <h3>🧪 Доступ разработчика</h3>
+    <input id="devPass" placeholder="Введите пароль">
+    <button id="checkDev">Войти</button>
+    <p id="devMsg"></p>
+
+    <div id="devPanel" style="display:none;">
+      <button id="giveMillion">💰 Получить 1 000 000 рыб</button>
+    </div>
+
+    <br>
+    <button id="closeSettings">❌ Закрыть</button>
+  </div>
+</div>
 </html>
