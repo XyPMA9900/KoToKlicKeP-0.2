@@ -2,14 +2,12 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KotoClicker 🐱</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="loginScreen" class="modal show">
   <div class="modal-box">
     <h2>KotoClicker 🐱</h2>
@@ -22,74 +20,39 @@
 
 <div id="app">
   <div id="playerName"></div>
-  <div id="score">Рыбки: 0 🐟</div>
+  <div id="score">0</div>
   <div id="cat">🐱</div>
 
   <button id="openShop">🛒 Магазин</button>
   <button id="openSettings">⚙️ Настройки</button>
 </div>
 
-<!-- SHOP -->
 <div id="shop" class="modal">
   <div class="modal-box">
     <h2>Магазин</h2>
-    <button id="upgradeClick"></button>
-    <button id="autoClick"></button>
-    <button id="crit"></button>
-    <button id="boost"></button>
-    <button id="superCat"></button>
-    <button id="doubleAuto"></button>
-    <button id="goldFish"></button>
-    <button id="megaClick"></button>
-    <button id="passiveBoost"></button>
-    <button id="devFish"></button>
-    <br><br>
-    <button id="closeShop">❌ Закрыть</button>
+    <div id="shopItems"></div>
+    <button id="closeShop">Закрыть</button>
   </div>
 </div>
 
-<!-- SETTINGS -->
 <div id="settings" class="modal">
   <div class="modal-box">
     <h2>Настройки</h2>
-    <button id="resetGame">🗑 Сброс прогресса</button>
-    <button id="logoutBtn">🚪 Выйти</button>
-    <button id="deleteAccountBtn">❌ Удалить аккаунт</button>
+    <button id="resetGame">Сброс прогресса</button>
+    <button id="logoutBtn">Выйти</button>
+    <button id="deleteAccountBtn">Удалить аккаунт</button>
 
     <hr>
-
-    <h3>🧪 Разработчик</h3>
+    <h3>Разработчик</h3>
     <input id="devPass" placeholder="Пароль">
     <button id="checkDev">Войти</button>
-    <p id="devMsg"></p>
-
     <div id="devPanel" style="display:none;">
-      <button id="giveMillion">💰 +1 000 000 рыб</button>
+      <button id="giveMillion">+1 000 000</button>
     </div>
 
-    <br>
     <button id="closeSettings">Закрыть</button>
   </div>
 </div>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyA0AWaYCNNpEBzAYn1zMsAar4hY66qJ3LE",
-    authDomain: "kotoklikep-game.firebaseapp.com",
-    databaseURL: "https://kotoklikep-game-default-rtdb.firebaseio.com",
-    projectId: "kotoklikep-game",
-    storageBucket: "kotoklikep-game.appspot.com",
-    messagingSenderId: "1066435401451",
-    appId: "1:1066435401451:web:cdd04f944fcb8e11f308ae"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-</script>
 
 <script src="script.js"></script>
 </body>
