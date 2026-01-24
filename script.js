@@ -184,8 +184,6 @@ if(currentUser && accounts[currentUser]){
   $("loginScreen").classList.add("show");
 }
 
-};
-
 /* === KAZINO === */
 
 const kazino = {
@@ -252,3 +250,6 @@ kazinoButtons.forEach(btn=>{
 
 $("openKazino").onclick = ()=> $("kazino").classList.add("show");
 $("closeKazino").onclick = ()=> $("kazino").classList.remove("show");
+
+};
+
