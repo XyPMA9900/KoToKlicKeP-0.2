@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <title>KotoClicker</title>
@@ -9,13 +9,11 @@
 
 <div id="app">
   <div id="score">0 🐟</div>
-  <div id="cat">🐱</div>
+  <div id="cat">😺</div>
   <button id="openShop">🛒 Магазин</button>
 </div>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
-<!-- МОДАЛКА -->
+<!-- SHOP -->
 <div id="shop" class="modal">
   <div class="modal-box">
     <h2>Магазин</h2>
@@ -24,17 +22,25 @@
   </div>
 </div>
 
-<div id="shop" class="modal">
+<!-- ITEM MODAL -->
+<div id="itemModal" class="modal">
   <div class="modal-box">
-    <h2>Магазин</h2>
+    <h2 id="itemName"></h2>
+    <p id="itemDesc"></p>
 
-    <!-- ВОТ ЭТОГО У ТЕБЯ НЕ ХВАТАЕТ -->
-    <div id="shopItems"></div>
+    <div id="countBox">
+      <button id="minus">-</button>
+      <span id="itemCount">1</span>
+      <button id="plus">+</button>
+    </div>
 
-    <button id="closeShop">Закрыть</button>
+    <div>Цена: <span id="itemPrice"></span> 🐟</div>
+
+    <button id="buyItem">Купить</button>
+    <button onclick="closeItem()">Отмена</button>
   </div>
 </div>
 
-<script src="script.js"></script>
+<script src="script.js" defer></script>
 </body>
 </html>
