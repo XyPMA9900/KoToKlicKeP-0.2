@@ -1,31 +1,79 @@
-body {
+html, body {
   margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100%;
+  overflow: hidden; /* запрет скролла */
+  font-family: Arial;
   background: #5a30e6;
   color: white;
-  font-family: sans-serif;
 }
 
 #app {
-  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #score {
-  font-size: 32px;
+  font-size: 36px;
   margin-bottom: 20px;
 }
 
 #cat {
-  font-size: 100px;
+  font-size: 120px;
   cursor: pointer;
+  transition: transform 0.1s;
   user-select: none;
+}
+
+#cat:active {
+  transform: scale(0.9);
 }
 
 button {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+button:active {
+  transform: scale(0.9);
+}
+
+/* === МОДАЛКА === */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 14px;
+  text-align: center;
+  transform: scale(0.8);
+  transition: 0.25s;
+}
+
+.modal.show .modal-box {
+  transform: scale(1);
 }
