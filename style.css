@@ -1,56 +1,65 @@
 body {
   margin: 0;
+  font-family: Arial;
   background: #5a30e6;
   color: white;
-  font-family: sans-serif;
 }
 
-#game {
+#app {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
 }
 
 #score {
-  font-size: 32px;
+  font-size: 48px;
   margin-bottom: 20px;
 }
 
-#catBtn {
-  font-size: 60px;
-  padding: 20px;
-  border-radius: 100%;
-  border: none;
-  margin-bottom: 20px;
+#cat {
+  font-size: 200px;
+  cursor: pointer;
+  transition: 0.1s;
 }
 
-#shopBtn {
-  padding: 12px 20px;
+#cat:active {
+  transform: scale(0.9);
+}
+
+button {
   font-size: 18px;
-  border-radius: 12px;
-  border: none;
-}
-
-#shop, #itemModal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-#shop button, #itemModal button {
-  margin: 6px;
   padding: 10px 16px;
-  font-size: 16px;
+  margin: 6px;
   border-radius: 10px;
   border: none;
 }
 
-.hidden {
-  display: none;
+/* MODALS */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 14px;
+  min-width: 250px;
+  text-align: center;
 }
