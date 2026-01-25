@@ -80,3 +80,15 @@ button {
   gap:15px;
   margin:10px 0;
 }
+
+html, body {
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+* {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
