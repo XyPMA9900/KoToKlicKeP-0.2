@@ -9,16 +9,16 @@ let clickLock = false;
 
 /* ===== ITEMS ===== */
 const items = [
-  {name:"Клик +1", cost:10, desc:"+1 к клику", single:false, buy:(n)=>clickPower+=n},
-  {name:"Авто", cost:50, desc:"+1 в секунду", single:false, buy:(n)=>auto+=n},
-  {name:"Крит", cost:100, desc:"x2 шанс", single:true, buy:()=>{}},
-  {name:"Буст", cost:200, desc:"x2 клики", single:true, buy:()=>{}},
-  {name:"Супер кот", cost:300, desc:"+5 к клику", single:true, buy:()=>clickPower+=5},
-  {name:"Золото", cost:400, desc:"+100 рыб", single:false, buy:(n)=>score+=100*n},
-  {name:"Мега", cost:500, desc:"x2 клики навсегда", single:true, buy:()=>clickPower*=2},
-  {name:"Пассив", cost:600, desc:"x2 авто", single:true, buy:()=>auto*=2},
-  {name:"Ракета", cost:800, desc:"+1000 рыб", single:true, buy:()=>score+=1000},
-  {name:"Разраб", cost:9999, desc:"+100000 рыб", single:true, buy:()=>score+=100000}
+  {name:"👆🏻Клик +1", cost:10, desc:"+1 к клику", single:false, buy:(n)=>clickPower+=n},
+  {name:"🤖Авто", cost:50, desc:"+1 в секунду", single:false, buy:(n)=>auto+=n},
+  {name:"💥Крит", cost:100, desc:"x2 шанс", single:true, buy:()=>{}},
+  {name:"⏩Буст", cost:200, desc:"x2 клики", single:true, buy:()=>{}},
+  {name:"😼Супер кот", cost:300, desc:"+5 к клику", single:true, buy:()=>clickPower+=5},
+  {name:"🏅Золото", cost:400, desc:"+100 рыб", single:false, buy:(n)=>score+=100*n},
+  {name:"💪🏻Мега", cost:500, desc:"x2 клики навсегда", single:true, buy:()=>clickPower*=2},
+  {name:"⏳Пассив", cost:600, desc:"x2 авто", single:true, buy:()=>auto*=2},
+  {name:"🚀Ракета", cost:800, desc:"+1000 рыб", single:true, buy:()=>score+=1000},
+  {name:"🧪Разраб", cost:9999, desc:"+100000 рыб", single:true, buy:()=>score+=100000}
 ];
 
 /* ===== SAVE ===== */
