@@ -17,8 +17,8 @@ const items = [
   {name:"🏅Золото", cost:400, desc:"+100 рыб", single:false, buy:(n)=>score+=100*n},
   {name:"💪🏻Мега", cost:500, desc:"x2 клики навсегда", single:true, buy:()=>clickPower*=2},
   {name:"⏳Пассив", cost:600, desc:"x2 авто", single:true, buy:()=>auto*=2},
-  {name:"🚀Ракета", cost:800, desc:"+1000 рыб", single:true, buy:()=>score+=1000},
-  {name:"🧪Разраб", cost:9999, desc:"+100000 рыб", single:true, buy:()=>score+=100000}
+  {name:"кот-"coolscamer3000"", cost:6799, desc:"???", single:true, buy:()=>score+=1000},
+  {name:"🧪бот-"chatGPT"", cost:9999, desc:"майнит 1500 рыбок/сек", single:true, buy:()=>score+=100000}
 ];
 
 /* ===== SAVE ===== */
