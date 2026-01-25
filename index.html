@@ -2,38 +2,43 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>KoToKliKeP</title>
+  <title>KotoClicker</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div id="game">
-    <p id="score">0 🐟</p>
-    <button id="catBtn">🐱</button>
-    <button id="shopBtn">🛒 Магазин</button>
+<div id="app">
+
+  <div id="top">
+    <div id="score">0 🐟</div>
   </div>
 
-  <!-- Магазин -->
-  <div id="shop" class="hidden">
+  <div id="cat">🐱</div>
+
+  <div id="buttons">
+    <button id="openShop">🛒 Магазин</button>
+    <button id="openSettings">⚙️ Настройки</button>
+  </div>
+
+</div>
+
+<!-- SHOP -->
+<div id="shop" class="modal">
+  <div class="modal-box">
     <h2>Магазин</h2>
-
-    <button onclick="openItem(0)">Клик +1 (10)</button>
-    <button onclick="openItem(1)">Авто (50)</button>
-    <button onclick="openItem(2)">Пассив (600)</button>
-    <button onclick="openItem(3)">Ракета (800)</button>
-    <button onclick="openItem(4)">Разраб (9999)</button>
-
-    <button onclick="closeShop()">Закрыть</button>
+    <div id="shopItems"></div>
+    <button id="closeShop">Закрыть</button>
   </div>
+</div>
 
-  <!-- Окно товара -->
-  <div id="itemModal" class="hidden">
-    <h3 id="itemName"></h3>
-    <p id="itemDesc"></p>
-    <p id="itemPrice"></p>
-    <button onclick="buyItem()">Купить</button>
-    <button onclick="closeItem()">Отмена</button>
+<!-- SETTINGS -->
+<div id="settings" class="modal">
+  <div class="modal-box">
+    <h2>Настройки</h2>
+    <button id="resetGame">Сброс</button>
+    <button id="closeSettings">Закрыть</button>
   </div>
+</div>
 
 <script src="script.js"></script>
 </body>
