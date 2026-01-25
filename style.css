@@ -1,31 +1,77 @@
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  margin: 0;
+  font-family: Arial;
   background: #5a30e6;
   color: white;
+  text-align: center;
+}
+
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 }
 
 #score {
-  font-size: 40px;
-  margin-bottom: 20px;
+  font-size: 36px;
 }
 
-#b1 {
-  font-size: 60px;
-  padding: 20px;
+#cat {
+  font-size: 120px;
   border-radius: 1000px;
   border: none;
-  cursor: pointer;
-  transition: 0.1s;
+  padding: 20px;
 }
 
-#plus {
-  position: absolute;
-  top: 20%;
-  font-size: 30px;
+button {
+  font-size: 18px;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
+  pointer-events: none;
   transition: 0.2s;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 14px;
+  width: 80%;
+}
+
+.shop-item {
+  background: #eee;
+  margin: 6px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.shop-item.locked {
+  background: #333;
+  color: #777;
+}
+
+#itemCountBox {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px;
 }
