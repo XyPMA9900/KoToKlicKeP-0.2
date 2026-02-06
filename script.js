@@ -230,3 +230,94 @@ renderKazino();
 update();
 
 };
+
+/* ===== KAZINO RENDER ===== */
+
+const kazinoModes = [
+{ name:"☠️ ULTRAHARDER ☠️", chance:0.000001, mult:1000000, desc:"0.0001% шанс ×1 000 000" },
+{ name:"☠️ ULTRAHARD ☠️",   chance:0.0001,   mult:1000,     desc:"0.01% шанс ×1000" },
+{ name:"HARD",             chance:0.01,     mult:500,      desc:"1% шанс ×500" },
+{ name:"RISK&RICH",        chance:0.05,     mult:200,      desc:"5% шанс ×200" },
+{ name:"RISK",             chance:0.15,     mult:180,      desc:"15% шанс ×180" },
+{ name:"NORMALLY+",        chance:0.20,     mult:150,      desc:"20% шанс ×150" },
+{ name:"PASHALKO",         chance:0.67,     mult:14,       x2chance:0.88, desc:"67% шанс ×14 + 88% шанс X2" },
+{ name:"EZ WIN",           chance:0.65,     mult:2,        desc:"65% шанс ×2" },
+{ name:"NORMALLY",         chance:0.50,     mult:3,        desc:"50% шанс ×3" },
+{ name:"PROBNIK",          chance:0.50,     mult:1,        test:true, desc:"Тестовый режим без потерь" }
+];
+
+function renderKazino(){
+const box = $("kazinoModes");
+if(!box) return;
+
+box.innerHTML = "";
+
+kazinoModes.forEach((mode,i)=>{
+let btn = document.createElement("button");
+btn.className = "kazino-card";
+
+btn.innerHTML = `
+<b>${mode.name}</b><br>
+<small>${mode.desc}</small>
+`;
+
+btn.onclick = ()=> playKazino(i);
+
+box.appendChild(btn);
+});
+}
+
+function playKazino(i){
+const mode = kazinoModes[i];
+const bet = Number($("kazinoBet").value);
+const result = $("kazinoResult");
+
+if(!bet || bet<=0){
+result.textContent = "Введите ставку!";
+return;
+}
+
+if(score < bet){
+result.textContent = "Недостаточно рыбы 🐟";
+return;
+}
+
+if(mode.test){
+if(Math.random() < mode.chance){
+result.textContent = "✔️ ПРОБНИК: выигрыш без награды";
+}else{
+result.textContent = "❌ ПРОБНИК: проигрыш без потерь";
+}
+return;
+}
+
+score -= bet;
+
+if(Math.random() < mode.chance){
+let win = bet * mode.mult;
+
+if(mode.x2chance && Math.random() < mode.x2chance){
+win *= 2;
+result.textContent = "✔️ X2! +" + win;
+}else{
+result.textContent = "✔️ +" + win;
+}
+
+score += win;
+}else{
+result.textContent = "❌ -" + bet;
+}
+
+update();
+save();
+}
+
+/* открыть / закрыть */
+$("openKazino").onclick = ()=> {
+$("kazino").classList.add("show");
+renderKazino();
+};
+
+$("closeKazino").onclick = ()=> {
+$("kazino").classList.remove("show");
+};
