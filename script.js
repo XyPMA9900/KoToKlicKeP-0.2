@@ -1,44 +1,78 @@
-// ===== S.S.V KoToClicker Core =====
+// =============================
+// 🧠 SAFE CORE
+// =============================
 
-// --- DOM ---
 const $ = (id) => document.getElementById(id);
 
-// --- STATE ---
+function safeNum(v, def = 0) {
+  v = Number(v);
+  return isNaN(v) || !isFinite(v) ? def : v;
+}
+
+// =============================
+// 📦 STATE
+// =============================
+
 const state = {
   score: 0,
   clickPower: 1,
   autoPower: 0
 };
 
-// --- SAVE / LOAD ---
+// =============================
+// 💾 SAVE / LOAD (ANTI-CORRUPT)
+// =============================
+
 function save() {
-  localStorage.setItem("kotoSave", JSON.stringify(state));
+  try {
+    localStorage.setItem("kotoSave", JSON.stringify(state));
+  } catch (e) {
+    console.warn("Save error:", e);
+  }
 }
 
 function load() {
-  const data = JSON.parse(localStorage.getItem("kotoSave"));
-  if (!data) return;
+  try {
+    const data = JSON.parse(localStorage.getItem("kotoSave"));
+    if (!data) return;
 
-  state.score = Number(data.score) || 0;
-  state.clickPower = Number(data.clickPower) || 1;
-  state.autoPower = Number(data.autoPower) || 0;
+    state.score = safeNum(data.score, 0);
+    state.clickPower = safeNum(data.clickPower, 1);
+    state.autoPower = safeNum(data.autoPower, 0);
+  } catch (e) {
+    console.warn("Load error:", e);
+  }
 }
 
-// --- UPDATE UI ---
+// =============================
+// 🔄 UPDATE
+// =============================
+
 function update() {
-  $("score").textContent = state.score;
+  if ($("score")) {
+    $("score").textContent = state.score + " 🐟";
+  }
+
   renderShop();
   renderKazino();
   save();
 }
 
-// --- CLICK ---
-function clickCat() {
-  state.score += state.clickPower;
-  update();
+// =============================
+// 🐱 CLICK
+// =============================
+
+if ($("cat")) {
+  $("cat").addEventListener("click", () => {
+    state.score += state.clickPower;
+    update();
+  });
 }
 
-// --- AUTO ---
+// =============================
+// 🤖 AUTO
+// =============================
+
 setInterval(() => {
   if (state.autoPower > 0) {
     state.score += state.autoPower;
@@ -46,7 +80,9 @@ setInterval(() => {
   }
 }, 1000);
 
-// ===== SHOP =====
+// =============================
+// 🛒 SHOP
+// =============================
 
 const shopItems = [
   {
@@ -55,7 +91,7 @@ const shopItems = [
     price: 50,
     buy() {
       state.clickPower += 1;
-      this.price = Math.floor(this.price * 1.5);
+      this.price = Math.floor(this.price * 1.4);
     }
   },
   {
@@ -64,7 +100,7 @@ const shopItems = [
     price: 100,
     buy() {
       state.autoPower += 1;
-      this.price = Math.floor(this.price * 1.7);
+      this.price = Math.floor(this.price * 1.6);
     }
   }
 ];
@@ -75,9 +111,10 @@ function renderShop() {
 
   box.innerHTML = "";
 
-  shopItems.forEach((item, i) => {
-    const div = document.createElement("div");
+  shopItems.forEach((item) => {
+    if (!item || safeNum(item.price) <= 0) return;
 
+    const div = document.createElement("div");
     const canBuy = state.score >= item.price;
 
     div.innerHTML = `
@@ -89,8 +126,15 @@ function renderShop() {
 
     div.querySelector("button").onclick = () => {
       if (!canBuy) return;
+
       state.score -= item.price;
-      item.buy();
+
+      try {
+        item.buy();
+      } catch (e) {
+        console.warn("Shop buy error:", e);
+      }
+
       update();
     };
 
@@ -98,7 +142,9 @@ function renderShop() {
   });
 }
 
-// ===== KAZINO =====
+// =============================
+// 🎰 KAZINO
+// =============================
 
 const kazinoModes = [
   { name: "PROBNIK", desc: "50% шанс x2", chance: 0.5, mult: 2 },
@@ -107,22 +153,38 @@ const kazinoModes = [
 ];
 
 function playKazino(index) {
-  const bet = 10;
+  const betInput = $("kazinoBet");
+  const result = $("kazinoResult");
 
-  if (state.score < bet) {
-    alert("Недостаточно рыб!");
+  if (!betInput || !result) return;
+
+  const bet = safeNum(betInput.value, 0);
+
+  if (bet <= 0) {
+    result.textContent = "Введите нормальную ставку!";
     return;
   }
 
-  state.score -= bet;
+  if (bet > state.score) {
+    result.textContent = "Недостаточно рыб!";
+    return;
+  }
 
   const mode = kazinoModes[index];
+  if (!mode) return;
 
-  if (Math.random() < mode.chance) {
-    state.score += bet * mode.mult;
-    alert("ВЫИГРЫШ x" + mode.mult);
-  } else {
-    alert("Проигрыш ☠️");
+  state.score -= bet;
+
+  try {
+    if (Math.random() < mode.chance) {
+      const win = bet * mode.mult;
+      state.score += win;
+      result.textContent = `ВЫИГРЫШ x${mode.mult} (+${win})`;
+    } else {
+      result.textContent = "Проигрыш ☠️";
+    }
+  } catch (e) {
+    console.warn("Kazino error:", e);
   }
 
   update();
@@ -135,12 +197,14 @@ function renderKazino() {
   box.innerHTML = "";
 
   kazinoModes.forEach((mode, i) => {
+    if (!mode) return;
+
     const div = document.createElement("div");
 
     div.innerHTML = `
       <b>${mode.name}</b><br>
       <small>${mode.desc}</small><br>
-      <button>Играть (10 🐟)</button>
+      <button>Играть</button>
     `;
 
     div.querySelector("button").onclick = () => {
@@ -151,9 +215,27 @@ function renderKazino() {
   });
 }
 
-// ===== INIT =====
+// =============================
+// 🪟 MODALS (SAFE)
+// =============================
+
+function safeOpen(id) {
+  if ($(id)) $(id).style.display = "flex";
+}
+
+function safeClose(id) {
+  if ($(id)) $(id).style.display = "none";
+}
+
+$("openShop")?.addEventListener("click", () => safeOpen("shop"));
+$("closeShop")?.addEventListener("click", () => safeClose("shop"));
+
+$("openKazino")?.addEventListener("click", () => safeOpen("kazino"));
+$("closeKazino")?.addEventListener("click", () => safeClose("kazino"));
+
+// =============================
+// 🚀 INIT
+// =============================
 
 load();
 update();
-
-$("cat")?.addEventListener("click", clickCat);
