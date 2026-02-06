@@ -1,3 +1,5 @@
+localStorage.clear();
+
 window.onload = function(){
 
 const $ = id => document.getElementById(id);
