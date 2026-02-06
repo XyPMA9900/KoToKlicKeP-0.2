@@ -1,124 +1,82 @@
-html, body {
-  margin: 0;
-  height: 100%;
-  overflow: hidden;
-  font-family: Arial;
-  background: #5a30e6;
-  color: white;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
 }
 
-#app {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+body{
+background:#5b3df5;
+color:white;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
 }
 
-#score {
-  font-size: 48px;
-  font-weight: bold;
-  margin-bottom: 10px;
+#app{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:20px;
 }
 
-#cat {
-  font-size: 180px;
-  cursor: pointer;
-  transition: transform 0.1s;
+#score{
+font-size:32px;
 }
 
-button {
-  font-size: 18px;
-  padding: 10px 16px;
-  margin: 6px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  background: white;
-  color: black;
+#cat{
+font-size:90px;
+cursor:pointer;
+transition:0.1s;
 }
 
-button:active {
-  transform: scale(0.95);
+button{
+padding:10px 20px;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
 }
 
-/* ===== MODALS ===== */
-
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.25s;
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.6);
+display:flex;
+justify-content:center;
+align-items:center;
+opacity:0;
+pointer-events:none;
+transition:0.2s;
 }
 
-.modal.show {
-  opacity: 1;
-  pointer-events: auto;
+.modal.show{
+opacity:1;
+pointer-events:auto;
 }
 
-.modal-box {
-  background: white;
-  color: black;
-  padding: 20px;
-  border-radius: 16px;
-  text-align: center;
-  min-width: 250px;
-  transform: scale(0.8);
-  transition: 0.25s;
+.modal-box{
+background:white;
+color:black;
+padding:20px;
+border-radius:16px;
+width:90%;
+max-width:350px;
+display:flex;
+flex-direction:column;
+gap:15px;
+align-items:center;
 }
 
-.modal.show .modal-box {
-  transform: scale(1);
+#shopItems button{
+width:100%;
+margin-top:5px;
 }
 
-/* SHOP */
-
-#shopItems button {
-  width: 100%;
-  margin: 4px 0;
-}
-
-/* ITEM MODAL */
-
-.count-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin: 10px;
-}
-
-.count-box span {
-  font-size: 24px;
-  min-width: 30px;
-  text-align: center;
-}
-
-/* === KAZINO === */
-
-#kazinoModes {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  margin: 10px 0;
-}
-
-#kazino input {
-  width: 90%;
-  padding: 8px;
-  font-size: 16px;
-  margin: 8px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-#kazinoResult {
-  font-weight: bold;
-  margin: 10px;
-  min-height: 24px;
+#kazinoModes{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
 }
