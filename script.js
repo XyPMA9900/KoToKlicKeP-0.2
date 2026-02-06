@@ -183,18 +183,34 @@ mult:3
 ];
 
 function playKazino(i){
+
 let bet = Number($("kazinoBet").value);
-if(!bet||bet<=0) return $("kazinoResult").textContent="Введите ставку";
-if(state.score<bet) return $("kazinoResult").textContent="Мало рыб";
+
+if(!bet||bet<=0){
+$("kazinoResult").textContent="Введите ставку 🐟";
+return;
+}
+
+if(state.score<bet){
+$("kazinoResult").textContent="Недостаточно рыбы";
+return;
+}
 
 state.score-=bet;
 
 if(Math.random()<kazinoModes[i].chance){
+
 let win=bet*kazinoModes[i].mult;
 state.score+=win;
-$("kazinoResult").textContent="✔️ +" + win;
+
+$("kazinoResult").textContent=
+"✔️ ВЫИГРЫШ +" + win + " 🐟";
+
 }else{
-$("kazinoResult").textContent="❌ -" + bet;
+
+$("kazinoResult").textContent=
+"❌ ПРОИГРЫШ -" + bet + " 🐟";
+
 }
 
 update();
