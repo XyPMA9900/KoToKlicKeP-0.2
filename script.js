@@ -63,22 +63,31 @@ const items = [
 
 function renderShop(){
   const box = $("shopItems");
+  if(!box) return;
+
   box.innerHTML = "";
 
-  items.forEach(function(item){
+  items.forEach((item,i)=>{
     const div = document.createElement("div");
+    div.className = "shop-item";
+
+    const canBuy = state.score >= item.price;
 
     div.innerHTML = `
       <b>${item.name}</b><br>
-      ${item.desc}<br>
+      <small>${item.desc}</small><br>
       Цена: ${item.price} 🐟<br>
-      <button ${state.score < item.price ? "disabled":""}>Купить</button>
+      <button ${canBuy ? "" : "disabled"}>
+        Купить
+      </button>
     `;
 
-    div.querySelector("button").onclick = function(){
-      if(state.score < item.price) return;
+    div.querySelector("button").onclick = ()=>{
+      if(!canBuy) return;
+
       state.score -= item.price;
       item.buy();
+
       save();
       update();
     };
