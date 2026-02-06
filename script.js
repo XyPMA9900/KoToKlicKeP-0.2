@@ -149,69 +149,6 @@ box.appendChild(div);
 }
 
 /* === KAZINO === */
-const kazinoModes = [
-{
-name:"☠️ ULTRAHARDER",
-desc:"0.0001% шанс ×1 000 000",
-chance:0.000001,
-mult:1000000
-},
-{
-name:"☠️ ULTRAHARD",
-desc:"0.01% шанс ×1000",
-chance:0.0001,
-mult:1000
-},
-{
-name:"HARD",
-desc:"1% шанс ×500",
-chance:0.01,
-mult:500
-},
-{
-name:"RISK",
-desc:"15% шанс ×180",
-chance:0.15,
-mult:180
-},
-{
-name:"NORMALLY",
-desc:"50% шанс ×3",
-chance:0.5,
-mult:3
-}
-];
-
-function playKazino(i){
-
-let bet = Number($("kazinoBet").value);
-
-if(!bet||bet<=0){
-$("kazinoResult").textContent="Введите ставку 🐟";
-return;
-}
-
-if(state.score<bet){
-$("kazinoResult").textContent="Недостаточно рыбы";
-return;
-}
-
-state.score-=bet;
-
-if(Math.random()<kazinoModes[i].chance){
-
-let win=bet*kazinoModes[i].mult;
-state.score+=win;
-
-$("kazinoResult").textContent=
-"✔️ ВЫИГРЫШ +" + win + " 🐟";
-
-}else{
-
-$("kazinoResult").textContent=
-"❌ ПРОИГРЫШ -" + bet + " 🐟";
-
-}
 
 update();
 save();
