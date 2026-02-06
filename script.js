@@ -118,15 +118,22 @@ return Math.floor(shopData[i].baseCost * Math.pow(1.4, state.items[i]));
 function renderShop(){
 const box = $("shopItems");
 box.innerHTML="";
+
 shopData.forEach((item,i)=>{
+
 let cost = getCost(i);
+
 let div = document.createElement("div");
+div.className="shop-card";
+
 div.innerHTML = `
-<b>${item.name}</b><br>
-Цена: ${cost} 🐟<br>
-Куплено: ${state.items[i]}<br>
+<h3>${item.name}</h3>
+<p>${item.desc}</p>
+<p>Цена: <b>${cost}</b> 🐟</p>
+<p>Куплено: ${state.items[i]}</p>
 <button ${state.score<cost?"disabled":""}>Купить</button>
 `;
+
 div.querySelector("button").onclick=()=>{
 if(state.score>=cost){
 state.score-=cost;
@@ -136,6 +143,7 @@ update();
 save();
 }
 };
+
 box.appendChild(div);
 });
 }
