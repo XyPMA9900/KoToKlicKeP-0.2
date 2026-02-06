@@ -150,22 +150,37 @@ box.appendChild(div);
 
 /* === KAZINO === */
 const kazinoModes = [
-{n:"ULTRAHARD", chance:0.001, mult:1000},
-{n:"HARD", chance:0.01, mult:500},
-{n:"RISK", chance:0.1, mult:200},
-{n:"NORMAL", chance:0.5, mult:3}
-];
-
-function renderKazino(){
-const box=$("kazinoModes");
-box.innerHTML="";
-kazinoModes.forEach((m,i)=>{
-let btn=document.createElement("button");
-btn.textContent=m.n;
-btn.onclick=()=>playKazino(i);
-box.appendChild(btn);
-});
+{
+name:"☠️ ULTRAHARDER",
+desc:"0.0001% шанс ×1 000 000",
+chance:0.000001,
+mult:1000000
+},
+{
+name:"☠️ ULTRAHARD",
+desc:"0.01% шанс ×1000",
+chance:0.0001,
+mult:1000
+},
+{
+name:"HARD",
+desc:"1% шанс ×500",
+chance:0.01,
+mult:500
+},
+{
+name:"RISK",
+desc:"15% шанс ×180",
+chance:0.15,
+mult:180
+},
+{
+name:"NORMALLY",
+desc:"50% шанс ×3",
+chance:0.5,
+mult:3
 }
+];
 
 function playKazino(i){
 let bet = Number($("kazinoBet").value);
