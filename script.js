@@ -156,4 +156,4 @@ function renderKazino() {
 load();
 update();
 
-$("catBtn")?.addEventListener("click", clickCat);
+$("cat")?.addEventListener("click", clickCat);
