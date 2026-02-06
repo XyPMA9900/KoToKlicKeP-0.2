@@ -12,19 +12,67 @@ let state = {
 
 /* === SHOP ITEMS === */
 const shopData = [
-    {name:"+1 к клику", baseCost:10, effect:()=>state.clickPower+=1},
-    {name:"+5 к клику", baseCost:50, effect:()=>state.clickPower+=5},
-    {name:"+10 к клику", baseCost:200, effect:()=>state.clickPower+=10},
-    {name:"Авто +1", baseCost:100, effect:()=>state.autoPower+=1},
-    {name:"Авто +5", baseCost:500, effect:()=>state.autoPower+=5},
-    {name:"x2 клики", baseCost:1000, effect:()=>state.clickPower*=2},
-    {name:"x3 клики", baseCost:3000, effect:()=>state.clickPower*=3},
-    {name:"Мега буст", baseCost:5000, effect:()=>state.score+=1000},
-    {name:"Супер авто", baseCost:8000, effect:()=>state.autoPower+=20},
-    {name:"БОГ режим", baseCost:20000, effect:()=>state.clickPower+=100}
+{
+name:"+1 к клику",
+desc:"Увеличивает силу клика на 1",
+baseCost:10,
+effect:()=>state.clickPower+=1
+},
+{
+name:"+5 к клику",
+desc:"Мощнее удары кота",
+baseCost:50,
+effect:()=>state.clickPower+=5
+},
+{
+name:"+10 к клику",
+desc:"Серьёзный апгрейд клика",
+baseCost:200,
+effect:()=>state.clickPower+=10
+},
+{
+name:"Авто +1",
+desc:"+1 рыба в секунду",
+baseCost:100,
+effect:()=>state.autoPower+=1
+},
+{
+name:"Авто +5",
+desc:"+5 рыбы в секунду",
+baseCost:500,
+effect:()=>state.autoPower+=5
+},
+{
+name:"x2 клики",
+desc:"Удваивает текущий клик",
+baseCost:1000,
+effect:()=>state.clickPower*=2
+},
+{
+name:"x3 клики",
+desc:"Утроение клика",
+baseCost:3000,
+effect:()=>state.clickPower*=3
+},
+{
+name:"Мега буст",
+desc:"Мгновенно +1000 🐟",
+baseCost:5000,
+effect:()=>state.score+=1000
+},
+{
+name:"Супер авто",
+desc:"+20 рыбы в секунду",
+baseCost:8000,
+effect:()=>state.autoPower+=20
+},
+{
+name:"БОГ режим",
+desc:"+100 к силе клика",
+baseCost:20000,
+effect:()=>state.clickPower+=100
+}
 ];
-
-state.items = shopData.map(()=>0);
 
 /* === SAVE / LOAD === */
 function save(){
